@@ -1,0 +1,4 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+EpiCenter was licensed under a dual license, Commercial and LGPL prior to becoming closed source. As a derivative of the Real-time Outbreak and Disease Surveillance System, the University of Pittsburgh is making EpiCenter available here to benefit the public health community.

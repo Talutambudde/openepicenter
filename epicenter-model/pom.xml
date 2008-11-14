@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.hmsinc.epicenter</groupId>
+		<artifactId>epicenter</artifactId>
+		<version>2.3-SNAPSHOT</version>
+	</parent>
+
+	<name>EpiCenter :: Data Model</name>
+
+	<groupId>com.hmsinc.epicenter</groupId>
+	<artifactId>epicenter-model</artifactId>
+	<packaging>jar</packaging>
+
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>hibernate3-maven-plugin</artifactId>
+				<version>2.0</version>
+				<executions>
+					<execution>
+						<id>generate-oracle-schema</id>
+						<phase>package</phase>
+						<goals>
+							<goal>hbm2ddl</goal>
+						</goals>
+						<configuration>
+							<components>
+								<component>
+									<name>hbm2ddl</name>
+									<implementation>jpaconfiguration</implementation>
+									<outputDirectory>target</outputDirectory>
+								</component>
+							</components>
+							<componentProperties>
+								<persistenceunit>epicenter-model</persistenceunit>
+								<propertyfile>./database.properties</propertyfile>
+								<outputfilename>epicenter-model-oracle.ddl</outputfilename>
+								<packagename>com.hmsinc.epicenter.model</packagename>
+								<export>false</export>
+								<jdk5>true</jdk5>
+								<generics>true</generics>
+								<ejb3>true</ejb3>
+								<format>true</format>
+							</componentProperties>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>generate-postgresql-schema</id>
+						<phase>package</phase>
+						<goals>
+							<goal>hbm2ddl</goal>
+						</goals>
+						<configuration>
+							<components>
+								<component>
+									<name>hbm2ddl</name>
+									<implementation>jpaconfiguration</implementation>
+									<outputDirectory>target</outputDirectory>
+								</component>
+							</components>
+							<componentProperties>
+								<persistenceunit>epicenter-model</persistenceunit>
+								<propertyfile>database-pgsql.properties</propertyfile>
+								<outputfilename>epicenter-model-postgresql.ddl</outputfilename>
+								<packagename>com.hmsinc.epicenter.model</packagename>
+								<export>false</export>
+								<jdk5>true</jdk5>
+								<generics>true</generics>
+								<ejb3>true</ejb3>
+								<format>true</format>
+							</componentProperties>
+						</configuration>
+					</execution>
+
+					<!-- This is broken due to a bug in Hibernate Tools. -->
+					<execution>
+						<id>generate-hibernate-docs</id>
+						<phase>pre-site</phase>
+						<goals>
+							<goal>hbm2doc</goal>
+						</goals>
+						<configuration>
+							<components>
+								<component>
+									<name>hbm2doc</name>
+									<implementation>jpaconfiguration</implementation>
+									<outputDirectory>target/site/hibernate</outputDirectory>
+								</component>
+							</components>
+							<componentProperties>
+								<persistenceunit>epicenter-model</persistenceunit>
+								<propertyfile>./database.properties</propertyfile>
+								<packagename>com.hmsinc.epicenter.model</packagename>
+								<export>false</export>
+								<jdk5>true</jdk5>
+								<generics>true</generics>
+								<ejb3>true</ejb3>
+								<dot.executable>/usr/bin/dot</dot.executable>
+								<format>true</format>
+							</componentProperties>
+						</configuration>
+					</execution>
+										
+				</executions>
+							
+				<dependencies>
+				
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-simple</artifactId>
+						<version>${slf4j-version}</version>
+					</dependency>
+					
+					<dependency>
+						<groupId>com.hmsinc</groupId>
+						<artifactId>hibernate-extensions</artifactId>
+						<version>${hibernate-extensions-version}</version>
+					</dependency>
+
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-entitymanager</artifactId>
+						<version>${hibernate-em-version}</version>
+					</dependency>
+
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-validator</artifactId>
+						<version>${hibernate-validator-version}</version>
+					</dependency>
+			
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-tools</artifactId>
+						<version>${hibernate-tools-version}</version>
+					</dependency>
+
+					<dependency> 
+						<groupId>com.oracle.jdbc</groupId>
+						<artifactId>ojdbc6</artifactId>
+						<version>${oracle-version}</version>
+					</dependency>
+					
+					<dependency>
+						<groupId>postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+						<version>${postgresql-version}</version>
+					</dependency>
+					
+				</dependencies>
+				
+			</plugin>
+			
+			
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<taskdef name="instrument" classname="org.hibernate.tool.instrument.cglib.InstrumentTask">
+									<classpath>
+										<path refid="maven.dependency.classpath" />
+										<path refid="maven.plugin.classpath" />
+									</classpath>
+								</taskdef>
+								<instrument verbose="false">
+									<fileset dir="${project.build.outputDirectory}">
+										<!-- 
+										<include name="**/geography/*.class" />
+										<include name="**/provider/Facility.class" />
+										-->
+										<include name="**/geography/*.class" />
+										<include name="**/workflow/Event.class" />
+										<include name="**/surveillance/Anomaly.class" />
+									</fileset>
+								</instrument>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+				
+				<dependencies>
+				
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-simple</artifactId>
+						<version>${slf4j-version}</version>
+					</dependency>
+					
+					<dependency>
+						<groupId>com.hmsinc</groupId>
+						<artifactId>hibernate-extensions</artifactId>
+						<version>${hibernate-extensions-version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			
+			
+			<!-- 
+			<plugin>
+				<groupId>com.sun.tools.jxc.maven2</groupId>
+				<artifactId>maven-jaxb-schemagen-plugin</artifactId>
+				<executions>
+					<execution>
+						<configuration>
+							<destdir>${project.build.directory}/generated-schema</destdir>
+							<includes>
+								<include>com/hmsinc/epicenter/model/**</include>
+							</includes>
+							<excludes>
+								<exclude>**/*.jar</exclude>
+								<exclude>**/.svn/*</exclude>
+								<exclude>**/*UserDetails*</exclude>
+								<exclude>**/*Repository*</exclude>
+								<exclude>**/*Object*</exclude>
+								<exclude>**/*Iterator*</exclude>
+								<exclude>**/*Exception*</exclude>
+								<exclude>**/*Collection*</exclude>
+								<exclude>**/*Factory*</exclude>
+								<exclude>**/*Query*</exclude>
+								<exclude>**/*Queries*</exclude>
+								<exclude>**/util/*</exclude>
+								<exclude>**/*View*</exclude>
+								<exclude>**/*Attachment*</exclude>
+								<exclude>**/*Parameters*</exclude>
+								<exclude>**/surveillance/*</exclude>
+								<exclude>**/*Event*</exclude>
+							</excludes>
+							<schemas>
+								<schema>
+									<namespace>https://epicenter.hmsinc.com/model</namespace>
+									<file>epicenter-model.xsd</file>
+								</schema>
+							</schemas>
+							<srcdir>${project.build.sourceDirectory}</srcdir>
+						</configuration>
+						<phase>package</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			-->
+						
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>build-helper-maven-plugin</artifactId>
+			<executions>
+				<execution>
+				<id>attach-artifacts</id>
+					<phase>package</phase>
+					<goals>
+						<goal>attach-artifact</goal>
+					</goals>
+				</execution>
+			</executions>
+			<configuration>
+				<artifacts>
+					<artifact>
+						<file>target/epicenter-model-oracle.ddl</file>
+						<type>ddl</type>
+						<classifier>schema-oracle</classifier>
+					</artifact>
+
+					<artifact>
+						<file>target/epicenter-model-postgresql.ddl</file>
+						<type>ddl</type>
+						<classifier>schema-postgresql</classifier>
+					</artifact>
+
+					<!--
+					<artifact>
+						<file>target/generated-schema/schema1.xsd</file>
+						<type>xsd</type>
+						<classifier>xsd</classifier>
+					</artifact>
+					-->
+				</artifacts>
+			</configuration>
+
+		</plugin>
+
+	</plugins>
+	
+	</build>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.hmsinc.epicenter</groupId>
+			<artifactId>epicenter-common</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.hmsinc.epicenter</groupId>
+			<artifactId>epicenter-classifier</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.hmsinc.ts4j</groupId>
+			<artifactId>ts4j-analysis</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jta_1.0.1B_spec</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.hmsinc</groupId>
+			<artifactId>hibernate-extensions</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+				
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jmx</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.oracle.jdbc</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-csv</groupId>
+			<artifactId>commons-csv</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core-tiger</artifactId>
+		</dependency>
+
+		<!-- 
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+		</dependency>
+		-->
+		
+	</dependencies>
+
+</project>

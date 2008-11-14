@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<StyledLayerDescriptor xmlns="http://www.opengis.net/sld"
+	xmlns:ogc="http://www.opengis.net/ogc"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd"
+	version="1.0.0">
+	<UserLayer>
+		<Name>SpatialScan</Name>
+		<LayerFeatureConstraints>
+			<FeatureTypeConstraint />
+		</LayerFeatureConstraints>
+		<UserStyle>
+			<Name>spatial-scan</Name>
+			<Title>Spatial Scan</Title>
+			<Abstract>A style for symbolizing a spatial scan.</Abstract>
+			<FeatureTypeStyle>
+				<FeatureTypeName>SpatialScanOverlay</FeatureTypeName>
+				<Rule>
+					<RasterSymbolizer>
+						<Opacity>0.6</Opacity>
+						<ColorMap type="ramp" extended="true">
+							<ColorMapEntry color="#00ff00" quantity="0.0" opacity="1.0" />
+							<ColorMapEntry color="#ffffcc" quantity="10.0" />
+							<ColorMapEntry color="#ffeda0" quantity="20.0" />
+							<ColorMapEntry color="#fed976" quantity="40.0" />
+							<ColorMapEntry color="#feb24c" quantity="60.0" />
+							<ColorMapEntry color="#fd8d3c" quantity="80.0" />
+							<ColorMapEntry color="#fc4e2a" quantity="90.0" />
+							<ColorMapEntry color="#e31a1c" quantity="95.0" />
+							<ColorMapEntry color="#b10026" quantity="100.0" />
+						</ColorMap>
+						<OverlapBehavior>
+							<AVERAGE/>
+   						</OverlapBehavior>
+						
+					</RasterSymbolizer>
+				</Rule>
+			</FeatureTypeStyle>
+		</UserStyle>
+	</UserLayer>
+</StyledLayerDescriptor>
+

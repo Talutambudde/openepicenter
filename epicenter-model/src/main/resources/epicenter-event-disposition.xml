@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<export xmlns="http://epicenter.hmsinc.com/model"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<entries>
+
+		<entry xsi:type="EventDisposition" state="INITIAL">
+			<name>New</name>
+		</entry>
+
+		<entry xsi:type="EventDisposition" state="TRANSITIONAL">
+			<name>Active</name>
+		</entry>
+
+		<entry xsi:type="EventDisposition" state="DUPLICATE">
+			<name>Duplicate</name>
+		</entry>
+
+		<entry xsi:type="EventDisposition" state="TERMINAL">
+			<name>Indeterminate</name>
+		</entry>
+
+		<entry xsi:type="EventDisposition" state="TERMINAL">
+			<name>Unknown data error</name>
+		</entry>
+
+		<entry xsi:type="EventDisposition" state="TERMINAL">
+			<name>Healthcare facility based data error</name>
+		</entry>
+
+		<entry xsi:type="EventDisposition" state="TERMINAL">
+			<name>System based data error</name>
+		</entry>
+
+		<entry xsi:type="EventDisposition" state="TERMINAL">
+			<name>Seasonal illness health event</name>
+		</entry>
+
+		<entry xsi:type="EventDisposition" state="TERMINAL">
+			<name>Environmental health event</name>
+		</entry>
+
+		<entry xsi:type="EventDisposition" state="TERMINAL">
+			<name>Naturally occurring disease outbreak</name>
+		</entry>
+
+		<entry xsi:type="EventDisposition" state="TERMINAL">
+			<name>Disease outbreak due to bioterrorism</name>
+		</entry>
+
+		<entry xsi:type="EventDisposition" state="TERMINAL">
+			<name>Unknown health event</name>
+		</entry>
+
+	</entries>
+
+</export>

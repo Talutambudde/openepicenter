@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<classifier-metadata xmlns="http://epicenter.hmsinc.com/model">
+
+	<classifiers>
+	
+		<classifier name="Traumatic Injury" resource="classpath:TraumaticInjuryClassifier.xml" beta="true" />
+		
+		<classifier name="Infectious Disease Symptoms" resource="classpath:InfectiousDiseaseSymptomClassifier.xml" />
+		
+		<classifier name="Syndromes" resource="classpath:SyndromeClassifier.xml" />
+		
+		<classifier name="Discharge Disposition" resource="classpath:DischargeDisposition.xml" beta="true" />
+		
+		<classifier name="Animal Related Injury" resource="classpath:AnimalRelatedInjuryClassifier.xml" beta="true" />
+		 
+		<classifier name="Influenza Related Illness" resource="classpath:InfluenzaRelatedIllnessClassifier.xml" enabled="false" beta="true" />
+		
+	</classifiers>
+	
+	<data-types>
+		
+		<data-type name="Emergency Department Registrations">
+			<targets>
+				<target>
+					<classifier>Traumatic Injury</classifier>
+					<interaction-class>com.hmsinc.epicenter.model.health.Registration</interaction-class>
+					<patient-class name="Emergency Department" />
+					<property>reason</property>
+				</target>
+				
+				<target>
+					<classifier>Animal Related Injury</classifier>
+					<interaction-class>com.hmsinc.epicenter.model.health.Registration</interaction-class>
+					<patient-class name="Emergency Department" />
+					<property>reason</property>
+				</target>
+				
+				<target>
+					<classifier>Infectious Disease Symptoms</classifier>
+					<interaction-class>com.hmsinc.epicenter.model.health.Registration</interaction-class>
+					<patient-class name="Emergency Department" />
+					<property>reason</property>
+				</target>
+		
+				<target>
+					<classifier>Influenza Related Illness</classifier>
+					<interaction-class>com.hmsinc.epicenter.model.health.Registration</interaction-class>
+					<patient-class name="Emergency Department" />
+					<property>reason,ageAtInteraction</property>
+				</target>
+							
+				<target>
+					<classifier>Syndromes</classifier>
+					<interaction-class>com.hmsinc.epicenter.model.health.Registration</interaction-class>
+					<patient-class name="Emergency Department" />
+					<property>reason,icd9</property>
+				</target>
+			</targets>
+		</data-type>
+		
+		<data-type name="Discharge Disposition">
+			<targets>
+				<target>      
+					<classifier>Discharge Disposition</classifier>
+					<interaction-class>com.hmsinc.epicenter.model.health.Discharge</interaction-class>
+					<patient-class name="Emergency Department" />
+					<property>disposition</property>
+				</target>
+		
+				<target>
+					<classifier>Discharge Disposition</classifier>
+					<interaction-class>com.hmsinc.epicenter.model.health.Discharge</interaction-class>
+					<patient-class name="Inpatient" />
+					<property>disposition</property>
+				</target>
+			</targets>
+		</data-type>
+		
+		<data-type name="Preliminary Diagnosis" visible="false" />
+		
+	</data-types>
+
+</classifier-metadata>

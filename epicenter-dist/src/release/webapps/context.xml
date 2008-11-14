@@ -1,0 +1,47 @@
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<!-- The contents of this file will be loaded for each web application -->
+<Context>
+
+    <Resource name="jdbc/EpiCenterDataSource" auth="Container" type="oracle.jdbc.pool.OracleDataSource" factory="oracle.jdbc.pool.OracleDataSourceFactory" url="jdbc:oracle:thin:@dev1.hmsinc.com:1521:dev11" connectionCachingEnabled="true" connectionCacheName="epicenter"  connectionCacheProperties="{MinLimit=0, MaxLimit=20, InitialLimit=0}" user="health_central_20" password="health_central_20" />
+
+    <Environment name="surveillanceEnabled" auth="Container" type="java.lang.Boolean" value="false" />
+
+
+    <!-- Default set of monitored resources -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+	
+    <!-- Uncomment this to disable session persistence across Tomcat restarts -->
+    <!--
+    <Manager pathname="" />
+    -->
+
+    <!-- Uncomment this to enable Comet connection tacking (provides events
+         on session expiration as well as webapp lifecycle) -->
+    <!--
+    <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
+    -->
+
+</Context>

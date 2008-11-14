@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+				        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd
+						http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+	<!-- Handle Spring annotations -->
+	<context:annotation-config />
+	
+
+	<!-- Scan for controllers -->
+	<context:component-scan base-package="com.hmsinc.epicenter.webapp" />
+
+	<tx:annotation-driven proxy-target-class="true" />
+	
+	
+	<!-- Properties -->
+	<bean id="applicationProperties" class="com.hmsinc.epicenter.spring.PropertyOverrideFactoryBean">
+		<property name="properties">
+			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="location" value="/WEB-INF/epicenter.properties" />
+			</bean>
+		</property>
+		<property name="overrideLocation" value="classpath:epicenter-overrides.properties" />
+	</bean>
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="properties" ref="applicationProperties" />
+	</bean>
+	
+	<jee:jndi-lookup id="geoServerHost" jndi-name="java:comp/env/geoServerHost" default-value="${geoserver.host}" />
+	
+	<jee:jndi-lookup id="geoServerSLDOverride" jndi-name="java:comp/env/geoServerSLDOverride" default-value="." />
+	
+	<jee:jndi-lookup id="googleAPIKey" jndi-name="java:comp/env/googleAPIKey" default-value="${google.api.key}" />
+	
+	
+	<!-- Velocity ViewResolver -->
+	<bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="/WEB-INF/velocity" />
+    </bean>
+    
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".vm" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+	</bean>
+
+
+	<!-- Annotation-based mappings -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />	
+
+	
+	<!-- DWR Controller Mapping -->
+	<dwr:controller id="dwrController" debug="true">
+    	<dwr:config-param name="activeReverseAjaxEnabled" value="false" />
+    </dwr:controller>
+	
+	<bean id="dwrUrlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="alwaysUseFullPath" value="true" />
+		<property name="mappings">
+			<map>
+				<entry key="/dwr/**/*" value-ref="dwrController" />
+			</map>
+		</property>
+	</bean>
+		
+</beans>

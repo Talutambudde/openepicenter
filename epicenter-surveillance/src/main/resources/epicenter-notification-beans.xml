@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
+
+	<!-- Velocity & Email -->
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<props>
+				<prop key="resource.loader">class</prop>
+				<prop key="class.resource.loader.class">org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader</prop>
+				<prop key="velocimacro.permissions.allow.inline.local.scope">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${epicenter.mail.host}" />
+	</bean>
+			
+			
+	<bean id="mailingNotifier" class="com.hmsinc.epicenter.surveillance.notification.MailingEventNotifier">
+		<property name="mailFrom" value="${epicenter.mail.from}" />
+	</bean>
+	
+	<bean id="loggingNotifier" class="com.hmsinc.epicenter.surveillance.notification.LoggingEventNotifier"/>
+
+	<bean id="emailMessageRenderer" class="com.hmsinc.epicenter.surveillance.notification.EmailMessageRenderer">
+		<property name="url" value="${epicenter.url}" />
+	</bean>
+	
+	<!-- Notification Service -->
+	<bean id="notificationService" class="com.hmsinc.epicenter.surveillance.notification.NotificationService" lazy-init="true">
+		<property name="notifiers">
+			<map>
+				<entry key="Log" value-ref="mailingNotifier" />
+			</map>
+		</property>
+	</bean>
+	
+</beans>
+

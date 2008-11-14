@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<assembly>
+	<id>all</id>
+	<formats>
+		<format>tar.gz</format>
+	</formats>
+	
+	<includeBaseDirectory>true</includeBaseDirectory>
+	<includeSiteDirectory>false</includeSiteDirectory> 
+	
+	<fileSets>
+		<fileSet>
+			<directory>target</directory>
+			<outputDirectory>/lib</outputDirectory>
+			<includes>
+				<include>*.jar</include>
+			</includes>
+		</fileSet>
+
+		<!-- Text files -->
+		<fileSet>
+			<directory>src/release</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>README*</include>
+				<include>LICENSE.txt</include>
+				<include>*.txt</include>
+			</includes>
+		</fileSet>
+
+		<!-- Configs -->
+		<fileSet>
+			<directory>src/release/conf</directory>
+			<outputDirectory>/conf</outputDirectory>
+			<includes>
+				<include>*</include>
+			</includes>
+		</fileSet>
+		
+		<!-- Launcher, etc -->
+		<fileSet>
+			<directory>src/release/bin</directory>
+			<outputDirectory>/bin</outputDirectory>
+			<includes>
+				<include>*</include>
+			</includes>
+			<fileMode>0755</fileMode>
+			<lineEnding>unix</lineEnding>
+		</fileSet>
+		
+		<!-- Linux service wrapper -->
+		<fileSet>
+			<directory>src/release/bin/linux</directory>
+			<outputDirectory>/bin/linux</outputDirectory>
+			<includes>
+				<include>wrapper-linux-*</include>
+			</includes>
+			<fileMode>0755</fileMode>
+		</fileSet>
+		
+		<fileSet>
+			<directory>src/release/bin/linux</directory>
+			<outputDirectory>/bin/linux</outputDirectory>
+			<includes>
+				<include>epicenter-surveillance</include>
+			</includes>
+			<fileMode>0755</fileMode>
+			<lineEnding>unix</lineEnding>
+		</fileSet>
+		
+		<fileSet>
+			<directory>src/release/bin/linux</directory>
+			<outputDirectory>/bin/linux</outputDirectory>
+			<includes>
+				<include>*.conf</include>
+			</includes>
+			<lineEnding>unix</lineEnding>
+		</fileSet>
+		
+		<fileSet>
+			<directory>src/release/bin/linux</directory>
+			<outputDirectory>/bin/linux</outputDirectory>
+			<includes>
+				<include>libwrapper-*</include>
+			</includes>
+		</fileSet>
+		
+		<!-- Windows service wrapper -->
+		<fileSet>
+			<directory>src/release/bin/windows</directory>
+			<outputDirectory>/bin/windows</outputDirectory>
+			<includes>
+				<include>*</include>
+			</includes>
+		</fileSet>
+		
+		<!-- Logs dir -->
+		<fileSet>
+			<directory>src/release/logs</directory>
+			<outputDirectory>/logs</outputDirectory>
+		</fileSet>
+
+		<fileSet>
+			<directory>src/release/webapps</directory>
+			<outputDirectory>/webapps</outputDirectory>
+			<includes>
+				<include>*.xml</include>
+			</includes>
+		</fileSet>
+		
+		<!-- Apps and schema dir -->
+		<fileSet>
+			<directory>target/dependencies/schema</directory>
+			<outputDirectory>/schema</outputDirectory>
+			<includes>
+				<include>*.ddl</include>
+			</includes>
+		</fileSet>
+		
+		<fileSet>
+			<directory>src/release/schema</directory>
+			<outputDirectory>/schema</outputDirectory>
+			<includes>
+				<include>*.sql</include>
+			</includes>
+		</fileSet>
+		
+		<fileSet>
+			<directory>target/dependencies/webapps</directory>
+			<outputDirectory>/webapps</outputDirectory>
+			<includes>
+				<include>*.war</include>
+			</includes>
+		</fileSet>
+		
+		<fileSet>
+			<directory>target/dependencies/mergence</directory>
+			<outputDirectory>/mergence</outputDirectory>
+			<includes>
+				<include>*.zip</include>
+			</includes>
+		</fileSet>
+		
+	</fileSets>
+
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>/lib</outputDirectory>
+			<unpack>false</unpack>
+			<scope>runtime</scope>
+		</dependencySet>
+	</dependencySets>
+	
+</assembly>
+

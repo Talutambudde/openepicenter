@@ -1,0 +1,46 @@
+#*
+ * Copyright (C) 2008 University of Pittsburgh
+ * 
+ * 
+ * This file is part of Open EpiCenter
+ * 
+ *     Open EpiCenter is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ * 
+ *     Open EpiCenter is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ * 
+ *     You should have received a copy of the GNU General Public License
+ *     along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+ *   
+ *#
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>EpiCenter</title>
+	<link href="#springUrl('/assets/epicenter/css/epicenter.css')" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<br/>
+<br/>
+<noscript>
+	<p class="logout">EpiCenter requires JavaScript, but it seems to be disabled in your browser. Please
+	enable JavaScript and <a href="app.html">try again</a>.</p>
+</noscript>
+<!--[if lt IE 7]>
+	<p class="logout">EpiCenter is an advanced application, and requires a more capable browser such as 
+	<a href="http://www.mozilla.com/firefox/">Firefox</a> or 
+	<a href="http://www.microsoft.com/windows/downloads/ie/getitnow.mspx">Internet Explorer 7</a>. 
+	Please upgrade your browser and try again.</p>
+<![endif]-->
+</body>
+
+</html>

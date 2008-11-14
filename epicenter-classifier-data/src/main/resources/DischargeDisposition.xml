@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<classifier-config xmlns="http://epicenter.hmsinc.com/classifier">
+
+	<name>Discharge Disposition</name>
+	<description>Describes a patient's status after leaving the facility.</description>
+	<version>1.0</version>
+	<implementation>com.hmsinc.epicenter.classifier.SimpleMapClassifier</implementation>
+	
+	<training-set>
+	
+		<category name="Discharged to Home" description="Discharged to home or self care (routine discharge)">
+			<entry value="1" />
+		</category>
+	
+		<category name="Hospital Transfer" description="Discharged/transferred to another short term general hospital for inpatient care">
+			<entry value="2" />
+		</category>
+		
+		<category name="SNF Transfer" description="Discharged/transferred to skilled nursing facility (SNF)">
+			<entry value="3" />
+		</category>
+		
+		<category name="ICF Transfer" description="Discharged/transferred to an intermediate care facility (ICF)">
+			<entry value="4" />
+		</category>
+		
+		<category name="Other Transfer" description="Discharged/transferred to another type of institution">
+			<entry value="5" />
+		</category>
+		
+		<category name="Home Health Transfer" description="Discharged/transferred to home under care of organized home health service organization">
+			<entry value="6" />
+		</category>
+		
+		<category name="AMA" description="Left against medical advice or discontinued care">
+			<entry value="7" />
+		</category>
+		
+		<category name="Home IV Transfer" description="Discharged/transferred to home under care of Home IV provider">
+			<entry value="8" />
+		</category>
+		
+		<category name="Admitted" description="Admitted as an inpatient to this hospital">
+			<entry value="9" />
+		</category>
+		
+		<category name="Discharge TBD" description="Discharge to be defined at state level, if necessary">
+			<entry value="10" />
+			<entry value="11" />
+			<entry value="12" />
+			<entry value="13" />
+			<entry value="14" />
+			<entry value="15" />
+			<entry value="16" />
+			<entry value="17" />
+			<entry value="18" />
+			<entry value="19" />
+		</category>
+		
+		<category name="DAA" description="Expired (i.e. dead)">
+			<entry value="20" />
+		</category>
+		
+		<category name="Deceased TBD" description="Expired to be defined at state level, if necessary">
+			<entry value="21" />
+			<entry value="22" />
+			<entry value="23" />
+			<entry value="24" />
+			<entry value="25" />
+			<entry value="26" />
+			<entry value="27" />
+			<entry value="28" />
+			<entry value="29" />
+		</category>
+		
+		<category name="Still a Patient" description="Still patient or expected to return for outpatient services (i.e. still a patient)">
+			<entry value="30" />
+		</category>
+		
+		<category name="Still a Patient TBD" description="Still patient to be defined at state level, if necessary i.e. still a patient)">
+			<entry value="31" />
+			<entry value="32" />
+			<entry value="33" />
+			<entry value="34" />
+			<entry value="35" />
+			<entry value="36" />
+			<entry value="37" />
+			<entry value="38" />
+			<entry value="39" />
+		</category>
+		
+		<category name="DOA Home" description="Expired (i.e. died) at home">
+			<entry value="40" />
+		</category>
+		
+		<category name="DOA Other Facility" description="Expired (i.e. died) in a medical facility; e.g., hospital, SNF, ICF, or free standing hospice">
+			<entry value="41" />
+		</category>
+		
+		<category name="DOA Unknown" description="Expired (i.e. died) - place unknown">
+			<entry value="42" />
+		</category>
+		
+	</training-set>
+	
+</classifier-config>

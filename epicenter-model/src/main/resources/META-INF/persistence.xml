@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+
+	<persistence-unit name="epicenter-model">
+
+		<class>com.hmsinc.epicenter.model</class>
+		
+		<class>com.hmsinc.epicenter.model.analysis.AnalysisView</class>
+		<class>com.hmsinc.epicenter.model.analysis.ClassifiedAnalysisView</class>
+		<class>com.hmsinc.epicenter.model.analysis.DataType</class>
+		<class>com.hmsinc.epicenter.model.analysis.classify.Classification</class>
+		<class>com.hmsinc.epicenter.model.analysis.classify.ClassificationTarget</class>
+		<class>com.hmsinc.epicenter.model.analysis.classify.Classifier</class>
+		
+		<class>com.hmsinc.epicenter.model.attribute.Attribute</class>
+		<class>com.hmsinc.epicenter.model.attribute.AgeGroup</class>
+		<class>com.hmsinc.epicenter.model.attribute.Gender</class>
+		<class>com.hmsinc.epicenter.model.attribute.PatientClass</class>
+		
+		<class>com.hmsinc.epicenter.model.geography.Geography</class>
+		<class>com.hmsinc.epicenter.model.geography.Country</class>
+		<class>com.hmsinc.epicenter.model.geography.County</class>
+		<class>com.hmsinc.epicenter.model.geography.Region</class>
+		<class>com.hmsinc.epicenter.model.geography.State</class>
+		<class>com.hmsinc.epicenter.model.geography.Zipcode</class>
+		
+		<class>com.hmsinc.epicenter.model.health.Admit</class>
+		<class>com.hmsinc.epicenter.model.health.Discharge</class>
+		<class>com.hmsinc.epicenter.model.health.Interaction</class>
+		<class>com.hmsinc.epicenter.model.health.Registration</class>
+		<class>com.hmsinc.epicenter.model.health.Patient</class>
+		<class>com.hmsinc.epicenter.model.health.PatientDetail</class>
+		
+		<class>com.hmsinc.epicenter.model.permission.AuthorizedRegion</class>
+		<class>com.hmsinc.epicenter.model.permission.EpiCenterRole</class>
+		<class>com.hmsinc.epicenter.model.permission.EpiCenterUser</class>
+		<class>com.hmsinc.epicenter.model.permission.Organization</class>
+		<class>com.hmsinc.epicenter.model.permission.PasswordResetToken</class>
+		<class>com.hmsinc.epicenter.model.permission.AuditEvent</class>
+		
+		<class>com.hmsinc.epicenter.model.provider.Contact</class>
+		<class>com.hmsinc.epicenter.model.provider.DataConnection</class>
+		<class>com.hmsinc.epicenter.model.provider.Facility</class>
+		<class>com.hmsinc.epicenter.model.provider.FacilityDUA</class>
+		<class>com.hmsinc.epicenter.model.provider.FacilityType</class>
+		<class>com.hmsinc.epicenter.model.provider.FacilityMilestone</class>
+		<class>com.hmsinc.epicenter.model.provider.Milestone</class>
+		<class>com.hmsinc.epicenter.model.provider.Note</class>
+		
+		<class>com.hmsinc.epicenter.model.surveillance.Anomaly</class>
+		<class>com.hmsinc.epicenter.model.surveillance.SurveillanceMethod</class>
+		<class>com.hmsinc.epicenter.model.surveillance.SurveillanceSet</class>
+		<class>com.hmsinc.epicenter.model.surveillance.SurveillanceTask</class>
+		
+		<class>com.hmsinc.epicenter.model.workflow.Activity</class>
+		<class>com.hmsinc.epicenter.model.workflow.Attachment</class>
+		<class>com.hmsinc.epicenter.model.workflow.Event</class>
+		<class>com.hmsinc.epicenter.model.workflow.EventDisposition</class>
+		<class>com.hmsinc.epicenter.model.workflow.Investigation</class>
+		<class>com.hmsinc.epicenter.model.workflow.Subscription</class>
+		<class>com.hmsinc.epicenter.model.workflow.Workflow</class>
+		<class>com.hmsinc.epicenter.model.workflow.WorkflowState</class>
+		<class>com.hmsinc.epicenter.model.workflow.WorkflowTransition</class>
+		
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		
+		<properties>
+
+			<property name="hibernate.hbm2ddl.auto" value="" />
+
+			<property name="hibernate.order_updates" value="true" />
+			<property name="hibernate.jdbc.batch_size" value="50" />
+			<property name="hibernate.jdbc.use_get_generated_keys" value="true" />
+			<property name="hibernate.cache.use_query_cache" value="true" />
+			<property name="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.SingletonEhCacheProvider" />
+
+			<!-- 
+			<property name="hibernate.connection.driver.class" value="oracle.jdbc.driver.OracleDriver" />
+			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@dev1:1521:DEV" />
+			<property name="hibernate.connection.username" value="health_central_dev" />
+			<property name="hibernate.connection.password" value="health_central_dev" />
+			<property name="hibernate.dialect" value="com.hmsinc.hibernate.dialect.Oracle10gExtendedDialect" />
+			-->
+			
+		</properties>
+
+	</persistence-unit>
+	
+</persistence>

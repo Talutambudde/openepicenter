@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<classifier-config xmlns="http://epicenter.hmsinc.com/classifier">
+	<name>Animal Related Injury</name>
+	<description>Generated Thu Feb 14 16:38:53 EST 2008</description>
+	<version>1.0</version>
+	<implementation>com.hmsinc.epicenter.classifier.regex.RegexClassifier</implementation>
+
+	<training-set>
+		<category name="Animal Attack">
+			<entry value="cat att" />
+			<entry value="claw" />
+			<entry value="dog att" />
+			<entry value="bear att" />
+			<entry value="animal att" />
+			<entry value="maul" />
+		</category>
+		<category name="Animal Bite">
+			<entry value="animal bi" />
+			<entry value="dog bi" />
+			<entry value="cat bi" />
+			<entry value="raccoon bi" />
+			<entry value="racoon bi" />
+			<entry value="horse bi" />
+			<entry value="kitten bi" />
+			<entry value="puppy bi" />
+			<entry value="squirrel bi" />
+			<entry value="rabbit bi" />
+			<entry value="bunny bi" />
+			<entry value="monkey bi" />
+			<entry value="hamster bi" />
+			<entry value="mouse bi" />
+			<entry value="rat bi" />
+			<entry value="gerbil bi" />
+			<entry value="lizard bi" />
+			<entry value="bat bit" />
+			<entry value="ferret bi" />
+			<entry value="feret bi" />
+			<entry value="ferrett bi" />
+			<entry value="ferett bi" />
+			<entry value="bitten">
+				<negative-indicators>
+					<entry value="child" />
+					<entry type="SEGMENT" value="kid" />
+					<entry type="SEGMENT" value="sis" />
+					<entry type="SEGMENT" value="bro" />
+					<entry value="friend" />
+					<entry type="SEGMENT" value="man" />
+					<entry type="SEGMENT" value="woman" />
+				</negative-indicators>
+			</entry>
+			<entry type="SEGMENT" value="bit by">
+				<negative-indicators>
+					<entry value="child" />
+					<entry type="SEGMENT" value="kid" />
+					<entry type="SEGMENT" value="sis" />
+					<entry type="SEGMENT" value="bro" />
+					<entry value="friend" />
+					<entry type="SEGMENT" value="man" />
+					<entry type="SEGMENT" value="woman" />
+				</negative-indicators>
+			</entry>
+			<entry type="SEGMENT" value="bite">
+				<negative-indicators>
+					<entry value="child" />
+					<entry type="SEGMENT" value="kid" />
+					<entry type="SEGMENT" value="sis" />
+					<entry type="SEGMENT" value="bro" />
+					<entry value="friend" />
+					<entry type="SEGMENT" value="man" />
+					<entry type="SEGMENT" value="woman" />
+				</negative-indicators>
+			</entry>
+		</category>
+		<category name="Animal Scratch">
+			<entry value="animal scr" />
+			<entry value="dog scr" />
+			<entry value="scratch by dog" />
+			<entry value="scratch from dog" />
+			<entry value="scratched by dog" />
+			<entry value="puppy scr" />
+			<entry value="scratch by puppy" />
+			<entry value="scratch from puppy" />
+			<entry value="scratched by puppy" />
+			<entry value="cat scr" />
+			<entry value="scratch by cat" />
+			<entry value="scratch from cat" />
+			<entry value="scratched by cat" />
+			<entry value="kitten scr" />
+			<entry value="scratch by kitten" />
+			<entry value="scratch from kitten" />
+			<entry value="scratched by kitten" />
+			<entry value="raccoon scr" />
+			<entry value="racoon scr" />
+			<entry value="scratched by rac" />
+			<entry value="scratch by rac" />
+			<entry value="scratch from rac" />
+			<entry value="maul" />
+		</category>
+		<category name="Misc. Animal Injury">
+			<entry value="fell from hors" />
+			<entry value="fell off hors" />
+			<entry value="fell off of hors" />
+			<entry value="fall from horse" />
+			<entry value="kick by hors" />
+			<entry value="kicked by hors" />
+			<entry value="horse kick" />
+		</category>
+		<category name="Rabies">
+			<entry value="rabies" />
+			<entry value="rabid" />
+		</category>
+		
+		<stopwords override="true"></stopwords>
+		
+	</training-set>
+</classifier-config>

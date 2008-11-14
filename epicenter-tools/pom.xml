@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.hmsinc.epicenter</groupId>
+		<artifactId>epicenter</artifactId>
+		<version>2.3-SNAPSHOT</version>
+	</parent>
+
+	<name>EpiCenter :: Standalone Tools</name> 
+
+	<groupId>com.hmsinc.epicenter</groupId>
+	<artifactId>epicenter-tools</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.hmsinc.epicenter</groupId>
+			<artifactId>epicenter-model</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.hmsinc.epicenter</groupId>
+			<artifactId>epicenter-classifier-data</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.hmsinc.epicenter</groupId>
+			<artifactId>epicenter-integrator</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.hmsinc.epicenter</groupId>
+			<artifactId>epicenter-services</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.hmsinc.mergence</groupId>
+			<artifactId>mergence-common</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.hmsinc.mergence</groupId>
+			<artifactId>mergence-script</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all-minimal</artifactId>
+		</dependency>
+			
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>com.hmsinc.epicenter.tools.ToolLauncher</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+</project>

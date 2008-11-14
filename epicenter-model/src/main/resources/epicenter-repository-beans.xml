@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+	<context:annotation-config />
+	
+	<tx:annotation-driven proxy-target-class="true" />
+	
+		
+	<!-- JAXB XML Support -->
+	<bean id="jaxbContext" class="com.hmsinc.epicenter.spring.JAXBContextFactoryBean">
+		<property name="contextPath" value="com.hmsinc.epicenter.model:com.hmsinc.ts4j" />
+	</bean>
+	
+	<!-- EhCache Manager -->
+	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" lazy-init="false">
+		<property name="shared" value="true" />
+	</bean>
+	
+	
+	<!-- JASYPT Password Encryptor -->
+	<bean id="passwordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
+	
+	
+	<!-- Domain Repositories -->
+	<bean id="analysisRepository" class="com.hmsinc.epicenter.model.analysis.impl.AnalysisRepositoryImpl">
+		<property name="analysisQueries">
+			<bean class="com.hmsinc.epicenter.model.analysis.impl.MaterializedViewAnalysisQueries" />
+		</property>
+	</bean>
+	
+	<bean id="attributeRepository" class="com.hmsinc.epicenter.model.attribute.impl.AttributeRepositoryImpl" />
+	
+	<bean id="geographyRepository" class="com.hmsinc.epicenter.model.geography.impl.GeographyRepositoryImpl" />
+	
+	<bean id="healthRepository" class="com.hmsinc.epicenter.model.health.impl.HealthRepositoryImpl" />
+	
+	<bean id="permissionRepository" class="com.hmsinc.epicenter.model.permission.impl.PermissionRepositoryImpl" />
+	
+	<bean id="providerRepository" class="com.hmsinc.epicenter.model.provider.impl.ProviderRepositoryImpl" />
+	
+	<bean id="surveillanceRepository" class="com.hmsinc.epicenter.model.surveillance.impl.SurveillanceRepositoryImpl" />
+	
+	<bean id="workflowRepository" class="com.hmsinc.epicenter.model.workflow.impl.WorkflowRepositoryImpl" />
+	
+	
+	<!-- Run initialization tasks (loading of default configurations) -->
+	<bean id="upgradeTasks" class="com.hmsinc.epicenter.model.initialization.UpgradeTasks">
+		<property name="tasks">
+			<list>
+				<bean class="com.hmsinc.epicenter.model.initialization.tasks.InitializeEventDispositions" />
+				<bean class="com.hmsinc.epicenter.model.initialization.tasks.InitializeWorkflow" />
+				<bean class="com.hmsinc.epicenter.model.initialization.tasks.InitializeRolesAndUsers" />
+				<bean class="com.hmsinc.epicenter.model.initialization.tasks.InitializeAttributes" />
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- Geocoder -->
+	<bean id="geocoder" class="com.hmsinc.epicenter.model.geography.util.GeocoderDotUSClient" />
+	
+	
+	<!-- Authentication Service -->
+	<bean id="userDetailsService" class="com.hmsinc.epicenter.model.permission.impl.EpiCenterUserDetailsService" />
+	
+	<bean id="auditEventListener" class="com.hmsinc.epicenter.model.permission.impl.AuditEventListener" />
+	
+	
+	<!-- Database-specific Constants -->
+	<util:map id="databaseConstantsMap">
+		<entry key="hibernate-oracle" value="com.hmsinc.hibernate.dialect.Oracle10gExtendedDialect" />
+		<entry key="hibernate-postgresql" value="com.hmsinc.hibernate.dialect.PostgreSQLExtendedDialect" />
+		<entry key="hibernate-derby" value="org.hibernate.dialect.DerbyDialect" />
+		<entry key="quartz-oracle" value="org.quartz.impl.jdbcjobstore.oracle.OracleDelegate" />
+		<entry key="quartz-postgresql" value="org.quartz.impl.jdbcjobstore.PostgreSQLDelegate" />
+		<entry key="quartz-derby" value="org.quartz.impl.jdbcjobstore.CloudscapeDelegate" />
+		<entry key="quartz-other" value="org.quartz.impl.jdbcjobstore.StdJDBCDelegate" />
+	</util:map>
+		
+	
+	<!-- Performance Monitoring
+	<bean id="timingAdvice" class="org.springframework.aop.interceptor.PerformanceMonitorInterceptor">
+		<property name="loggerName" value="PerformanceMonitor" />
+	</bean>
+	
+	<aop:config>
+		<aop:advisor advice-ref="timingAdvice" pointcut="execution(* *..*Repository*.*(..))" />
+	</aop:config>
+	-->
+	
+</beans>

@@ -1,0 +1,21 @@
+<projectDescription>
+  <name>epicenter-webapp</name>
+  <comment>EpiCenter Biosurveillance System</comment>
+  <projects>
+    <project>epicenter-classifier</project>
+    <project>epicenter-classifier-data</project>
+    <project>epicenter-common</project>
+    <project>epicenter-model</project>
+    <project>epicenter-services</project>
+    <project>epicenter-spatial</project>
+    <project>epicenter-surveillance</project>
+  </projects>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+</projectDescription>

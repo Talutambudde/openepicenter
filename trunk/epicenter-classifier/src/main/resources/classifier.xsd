@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<schema targetNamespace="http://epicenter.hmsinc.com/classifier"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:c="http://epicenter.hmsinc.com/classifier"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	jaxb:extensionBindingPrefixes="xjc">
+
+	<annotation>
+		<appinfo>
+			<jaxb:globalBindings>
+				<xjc:simple />
+			</jaxb:globalBindings>
+		</appinfo>
+	</annotation>
+
+	<complexType name="ClassifierConfig">
+		<sequence>
+			<element name="name" type="string" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="description" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="version" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="implementation" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+            
+            <element name="ngram-size" type="int" maxOccurs="1"
+				minOccurs="0">
+			</element>
+			<element ref="c:training-set" maxOccurs="1" minOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="TrainingSet">
+		<sequence>
+			<element ref="c:category" maxOccurs="unbounded"
+				minOccurs="1">
+			</element>
+			<element ref="c:none-indicators" maxOccurs="1"
+				minOccurs="0">
+			</element>
+			<element ref="c:stopwords" maxOccurs="1" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Category">
+		<sequence>
+			<element ref="c:entry" maxOccurs="unbounded"
+				minOccurs="1">
+			</element>
+		</sequence>
+		<attribute name="name" type="string" use="required"></attribute>
+		<attribute name="description" type="string"></attribute>
+		<attribute name="ignore" type="boolean" use="optional"></attribute>
+	</complexType>
+
+	<complexType name="NegativeIndicators">
+		<sequence>
+			<element ref="c:entry" maxOccurs="unbounded" minOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+
+
+	<element name="classifier-config" type="c:ClassifierConfig"></element>
+
+	<element name="training-set" type="c:TrainingSet"></element>
+
+	<complexType name="Entry" abstract="false">
+        <sequence maxOccurs="1" minOccurs="0">
+            <element name="condition" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="item" type="c:Item" maxOccurs="unbounded" minOccurs="0">
+			</element>
+            <element ref="c:negative-indicators" maxOccurs="1" minOccurs="0">
+			</element>
+            <element ref="c:co-indicators" maxOccurs="1" minOccurs="0">
+			</element>
+        </sequence>
+		<attribute name="value" type="string" use="optional"></attribute>
+		<attribute name="type" type="c:EntryType"></attribute>
+	</complexType>
+
+
+
+
+
+	<element name="category" type="c:Category"></element>
+
+	<complexType name="NoneIndicators">
+		<sequence>
+			<element ref="c:entry" maxOccurs="unbounded" minOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<element name="negative-indicators" type="c:NegativeIndicators"></element>
+
+
+
+
+
+	<element name="none-indicators" type="c:NoneIndicators"></element>
+
+
+
+	<element name="entry" type="c:Entry"></element>
+
+	<simpleType name="EntryType">
+		<restriction base="string">
+			<enumeration value="WORD"></enumeration>
+			<enumeration value="SEGMENT"></enumeration>
+			<enumeration value="MAP"></enumeration>
+		</restriction>
+	</simpleType>
+
+
+	<complexType name="CoIndicators">
+		<sequence>
+			<element ref="c:entry" maxOccurs="unbounded"
+				minOccurs="1">
+			</element>
+		</sequence>
+    </complexType>
+
+	<element name="co-indicators" type="c:CoIndicators"></element>
+
+	<element name="stopword" type="string"></element>
+
+
+
+	<complexType name="StopWords">
+		<sequence>
+			<element ref="c:stopword" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+		<attribute name="override" type="boolean"></attribute>
+	</complexType>
+
+	<element name="stopwords" type="c:StopWords"></element>
+
+	<complexType name="Item">
+		<simpleContent>
+			<extension base="string">
+				<attribute name="type" type="c:EntryType"></attribute>
+			</extension>
+		</simpleContent></complexType>
+</schema>

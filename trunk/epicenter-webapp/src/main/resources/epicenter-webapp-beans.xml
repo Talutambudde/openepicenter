@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+						http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+	<!-- Handle annotations, autodiscovery and aspects -->
+	<context:annotation-config />
+	
+	<context:component-scan base-package="com.hmsinc.epicenter.webapp">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+
+	<!-- Properties -->
+	<bean id="applicationProperties" class="com.hmsinc.epicenter.spring.PropertyOverrideFactoryBean">
+		<property name="properties">
+			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="location" value="/WEB-INF/epicenter.properties" />
+			</bean>
+		</property>
+		<property name="overrideLocation" value="classpath:epicenter-overrides.properties" />
+	</bean>
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="properties" ref="applicationProperties" />
+	</bean>
+	
+	
+	<!-- Surveillance can be enabled/disabled via jndi -->
+	<jee:jndi-lookup id="surveillanceEnabled" jndi-name="java:comp/env/surveillanceEnabled" default-value="false" />
+	
+	
+	<!-- JPA Data Access Layer -->
+	<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/EpiCenterDataSource" />
+
+	<jee:jndi-lookup id="databaseType" jndi-name="java:comp/env/databaseType" />
+	
+	<bean id="databaseConfiguration" class="com.hmsinc.epicenter.model.util.DatabaseConfiguration">
+		<property name="databaseType" ref="databaseType" />
+	</bean>
+	
+	<bean id="databaseConfiguration.hibernateDialect" class="org.springframework.beans.factory.config.PropertyPathFactoryBean" />
+	<bean id="databaseConfiguration.quartzDelegate" class="org.springframework.beans.factory.config.PropertyPathFactoryBean" />
+	
+	
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" depends-on="ehCacheManager">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" ref="databaseConfiguration.hibernateDialect" />
+				<property name="showSql" value="false" />
+				<property name="generateDdl" value="false" />
+			</bean>
+		</property>
+		<property name="persistenceUnitName" value="epicenter-model" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto"></prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	
+	<!-- Hibernate Statistics -->
+	<bean id="hibernateSessionFactory" factory-bean="entityManagerFactory" factory-method="getSessionFactory" />
+	
+	<bean id="hibernateStatistics" class="org.hibernate.jmx.StatisticsService">
+		<property name="statisticsEnabled" value="true" />
+ 		<property name="sessionFactory" ref="hibernateSessionFactory"/>
+	</bean>
+	
+	<tx:annotation-driven proxy-target-class="true" />
+	
+	
+	<!-- JMX -->
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
+		<property name="locateExistingServerIfPossible" value="true" />
+	</bean>
+
+	<context:mbean-export server="mbeanServer" />
+	
+	
+	<!-- Surveillance, etc -->
+	<import resource="classpath:epicenter-surveillance-scheduled.xml" />
+	
+	
+	<!-- Spatial Scanning -->
+	<import resource="classpath:epicenter-spatial-beans.xml" />
+	
+	
+	<!-- Remoting Services -->
+	<import resource="classpath:epicenter-remoting-beans.xml" />
+
+
+	<!-- Acegi Security Configuration -->
+	<import resource="classpath:epicenter-security-beans.xml" />
+	
+	
+</beans>

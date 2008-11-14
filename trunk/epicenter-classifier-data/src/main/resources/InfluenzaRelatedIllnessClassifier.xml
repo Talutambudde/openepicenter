@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<classifier-config xmlns="http://epicenter.hmsinc.com/classifier">
+	<name>Influenza Related Illness</name>
+	<description>June 9, 2008</description>
+	<version>1.0</version>
+	<implementation>com.hmsinc.epicenter.classifier.regex.RegexClassifier</implementation>
+	
+	<training-set>
+	
+		<category name="Specific Complaints">
+			<entry>
+				<item>pneumonia</item>
+				<item>cold</item>
+				<item>uri</item>
+				<item>respiratory infection</item>
+				<item>upper resp</item>
+				<item type="SEGMENT">flu</item>
+				<negative-indicators>
+					<entry>
+						<item>urin</item>
+						<item>uric</item>
+						<item>uria</item>
+						<item>urie</item>
+						<item>uris</item>
+						<item>sweat</item>
+					</entry>
+				</negative-indicators>
+			</entry>
+		</category>
+		
+		<category name="Existing Conditions">
+			<entry>
+				<item>bronchitis</item>
+				<item>asthma</item>
+				<negative-indicators>
+					<entry value="anti" />
+				</negative-indicators>
+			</entry>
+		</category>
+
+		<category name="Fever Conditional">
+			<entry>
+				<item>fever</item>
+				<item>febrile</item>
+				<item>temperature</item>
+				<item>sweats</item>
+				<item>chills</item>
+				<item>fevef</item>
+				<item>fevr</item>
+				<item>fev</item>
+				<item>fver</item>
+				<item>temp</item>
+				<item>fiver</item>
+				<item type="SEGMENT">t/w*[0-9]+</item>
+				<negative-indicators>
+					<entry>
+						<item>etoh</item>
+						<item>withdrawl</item>
+						<item type="SEGMENT">post</item>
+						<item type="SEGMENT">tube</item>
+						<item>alcohol</item>
+						<item>surgery</item>
+						<item>denies</item>
+						<item>no</item>
+						<item>cold</item>
+					</entry>
+				</negative-indicators>
+				<co-indicators>
+					<entry>
+						<item>headache</item>
+						<item>head ache</item>
+						<item>head hurts</item>
+						<item>head pounding</item>
+						<item>head pain</item>
+						<item>h/a</item>
+						<item type="SEGMENT">ha</item>
+						<negative-indicators>
+							<entry>
+								<item>accident</item>
+								<item>mva</item>
+								<item>crash</item>
+								<item>hit</item>
+								<item>sinus</item>
+								<item>fell</item>
+								<item>assault</item>
+								<item>fall</item>
+							</entry>
+						</negative-indicators>
+					</entry>
+					<entry>
+						<item>myalgia</item>
+						<item>body ache</item>
+						<item>body aches</item>
+						<item>hurt all over</item>
+						<item>hurts all over</item>
+						<item>bodyache</item>
+						<item>body pain</item>
+						<negative-indicators>
+							<entry>
+								<item>fibro</item>
+							</entry>
+						</negative-indicators>
+					</entry>
+					<entry>
+						<item>prostration</item>
+						<item>weakness</item>
+						<item>fatigue</item>
+						<item>weak</item>
+						<item>worn out</item>
+						<item>sleeping a lot</item>
+						<item type="SEGMENT">tired</item>
+						<negative-indicators>
+							<entry>
+								<item>side</item>
+								<item>syncopal</item>
+								<item>syncope</item>
+								<item>faint</item>
+								<item>passed out</item>
+							</entry>
+						</negative-indicators>
+					</entry>
+					<entry>
+						<item>coryza</item>
+						<item>runny nose</item>
+						<item>rhinorrhea</item>
+						<item>nose running</item>
+						<item>running nose</item>
+					</entry>
+					<entry>
+						<item>sore throat</item>
+						<item>throat hurts</item>
+						<item>hurts to swallow</item>
+						<item>sorethroat</item>
+						<item>throat sore</item>
+					</entry>
+					<entry>
+						<item>chest congestion</item>
+						<item>trouble breathing</item>
+						<item>congestion</item>
+						<item>sob</item>
+						<item>shortness of breath</item>
+						<item>unable to breath</item>
+						<item>short of breath</item>
+						<item>difficulty breathing</item>
+						<item>diff. breathing</item>
+						<item>diff breathing</item>
+						<item>tr breathing</item>
+						<item>dyspnea</item>
+						<item>wheezing</item>
+						<item>stuffy head</item>
+						<item>breathing difficulties</item>
+						<item>breathing diff</item>
+						<item>breathing problem</item>
+						<item>breathing trouble</item>
+						<item>cant breath</item>
+						<item>can't breath</item>
+						<item>hard to breath</item>
+						<item>diffbreath</item>
+						<item>sh of breath</item>
+						<item>stuffy nose</item>
+						<item>hard time breathing</item>
+						<item>hurts to breath</item>
+						<item>problem breathing</item>
+						<item>OTHER DYSPNEA AND RESPIRATORY ABNORMALITY</item>
+						<item>shrtbreath</item>
+						<negative-indicators>
+							<entry>
+								<item>pain</item>
+								<item>blood</item>
+								<item>cp</item>
+								<item>tightness</item>
+								<item>pressure</item>
+								<item>sinus</item>
+							</entry>
+						</negative-indicators>
+					</entry>
+					<entry>
+						<item>cough</item>
+						<item>coigh</item>
+						<item>hoarse</item>
+						<item>caughing</item>
+						<negative-indicators>
+							<entry>
+								<item type="SEGMENT">syr</item>
+								<item type="SEGMENT">vag</item>
+								<item>blood</item>
+							</entry>
+						</negative-indicators>
+					</entry>
+					<entry>
+						<condition>ageAtInteraction &lt; 13</condition>
+						<item>nausea</item>
+						<item>sick stomach</item>
+						<item>sick to stomach</item>
+					</entry>
+					<entry>
+						<condition>ageAtInteraction &lt; 13</condition>
+						<item>vomiting</item>
+						<item>vommit</item>
+						<item>emesis</item>
+						<item>throwing up</item>
+						<item>throw up</item>
+						<item>vomt</item>
+						<item>vomi</item>
+						<item>vommin</item>
+						<item type="SEGMENT">nv</item>
+						<item type="SEGMENT">ving</item>
+						<negative-indicators>
+							<entry value="blood" />
+						</negative-indicators>
+					</entry>
+					<entry>
+						<condition>ageAtInteraction &lt; 13</condition>
+						<item>diarrhea</item>
+						<item>loose stool</item>
+						<item>runs</item>
+						<item>diah</item>
+						<item>nvd</item>
+						<item>n,v,d</item>
+						<item>dirrhea</item>
+						<item>runny stool</item>
+						<item type="SEGMENT">nd</item>
+					</entry>
+				</co-indicators>
+			</entry>
+		</category>
+		
+		<category name="Aggregate Keyword">
+			<entry>
+				<item>fever</item>
+				<item>febrile</item>
+				<item>temperature</item>
+				<item>sweats</item>
+				<item>chills</item>
+				<item>fevef</item>
+				<item>fevr</item>
+				<item>fev</item>
+				<item>fver</item>
+				<item>temp</item>
+				<item>fiver</item>
+				<item type="SEGMENT">t/w*[0-9]+</item>
+				<negative-indicators>
+					<entry>
+						<item>etoh</item>
+						<item>withdrawl</item>
+						<item type="SEGMENT">post</item>
+						<item type="SEGMENT">tube</item>
+						<item>alcohol</item>
+						<item>surgery</item>
+						<item>denies</item>
+						<item>no</item>
+						<item>cold</item>
+					</entry>
+				</negative-indicators>
+			</entry>
+			
+			<entry>
+				<item>headache</item>
+				<item>head ache</item>
+				<item>head hurts</item>
+				<item>head pounding</item>
+				<item>head pain</item>
+				<item>h/a</item>
+				<item type="SEGMENT">ha</item>
+				<negative-indicators>
+					<entry>
+						<item>accident</item>
+						<item>mva</item>
+						<item>crash</item>
+						<item>hit</item>
+						<item>sinus</item>
+						<item>fell</item>
+						<item>assault</item>
+						<item>fall</item>
+					</entry>
+				</negative-indicators>
+			</entry>
+			<entry>
+				<item>myalgia</item>
+				<item>body ache</item>
+				<item>body aches</item>
+				<item>hurt all over</item>
+				<item>hurts all over</item>
+				<item>bodyache</item>
+				<item>body pain</item>
+				<negative-indicators>
+					<entry>
+						<item>fibro</item>
+					</entry>
+				</negative-indicators>
+			</entry>
+			<entry>
+				<item>prostration</item>
+				<item>weakness</item>
+				<item>fatigue</item>
+				<item>weak</item>
+				<item>worn out</item>
+				<item>sleeping a lot</item>
+				<item type="SEGMENT">tired</item>
+				<negative-indicators>
+					<entry>
+						<item>side</item>
+						<item>syncopal</item>
+						<item>syncope</item>
+						<item>faint</item>
+						<item>passed out</item>
+					</entry>
+				</negative-indicators>
+			</entry>
+			<entry>
+				<item>coryza</item>
+				<item>runny nose</item>
+				<item>rhinorrhea</item>
+				<item>nose running</item>
+				<item>running nose</item>
+			</entry>
+			<entry>
+				<item>sore throat</item>
+				<item>throat hurts</item>
+				<item>hurts to swallow</item>
+				<item>sorethroat</item>
+				<item>throat sore</item>
+			</entry>
+			<entry>
+				<item>chest congestion</item>
+				<item>trouble breathing</item>
+				<item>congestion</item>
+				<item>sob</item>
+				<item>shortness of breath</item>
+				<item>unable to breath</item>
+				<item>short of breath</item>
+				<item>difficulty breathing</item>
+				<item>diff. breathing</item>
+				<item>diff breathing</item>
+				<item>tr breathing</item>
+				<item>dyspnea</item>
+				<item>wheezing</item>
+				<item>stuffy head</item>
+				<item>breathing difficulties</item>
+				<item>breathing diff</item>
+				<item>breathing problem</item>
+				<item>breathing trouble</item>
+				<item>cant breath</item>
+				<item>can't breath</item>
+				<item>hard to breath</item>
+				<item>diffbreath</item>
+				<item>sh of breath</item>
+				<item>stuffy nose</item>
+				<item>hard time breathing</item>
+				<item>hurts to breath</item>
+				<item>problem breathing</item>
+				<item>OTHER DYSPNEA AND RESPIRATORY ABNORMALITY</item>
+				<item>shrtbreath</item>
+				<negative-indicators>
+					<entry>
+						<item>pain</item>
+						<item>blood</item>
+						<item>cp</item>
+						<item>tightness</item>
+						<item>pressure</item>
+						<item>sinus</item>
+					</entry>
+				</negative-indicators>
+			</entry>
+			<entry>
+				<item>cough</item>
+				<item>coigh</item>
+				<item>hoarse</item>
+				<item>caughing</item>
+				<negative-indicators>
+					<entry>
+						<item type="SEGMENT">syr</item>
+						<item type="SEGMENT">vag</item>
+						<item>blood</item>
+					</entry>
+				</negative-indicators>
+			</entry>
+			<entry>
+				<condition>ageAtInteraction &lt; 13</condition>
+				<item>nausea</item>
+				<item>sick stomach</item>
+				<item>sick to stomach</item>
+			</entry>
+			<entry>
+				<condition>ageAtInteraction &lt; 13</condition>
+				<item>vomiting</item>
+				<item>vommit</item>
+				<item>emesis</item>
+				<item>throwing up</item>
+				<item>throw up</item>
+				<item>vomt</item>
+				<item>vomi</item>
+				<item>vommin</item>
+				<item type="SEGMENT">nv</item>
+				<item type="SEGMENT">ving</item>
+				<negative-indicators>
+					<entry value="blood" />
+				</negative-indicators>
+			</entry>
+			<entry>
+				<condition>ageAtInteraction &lt; 13</condition>
+				<item>diarrhea</item>
+				<item>loose stool</item>
+				<item>runs</item>
+				<item>diah</item>
+				<item>nvd</item>
+				<item>n,v,d</item>
+				<item>dirrhea</item>
+				<item>runny stool</item>
+				<item type="SEGMENT">nd</item>
+			</entry>
+		</category>
+	
+		<stopwords override="true" />
+		
+	</training-set>
+	
+	
+</classifier-config>

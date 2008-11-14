@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<workflow xmlns="http://epicenter.hmsinc.com/model">
+
+	<name>Default Workflow</name>
+	<description>The default workflow</description>
+	
+	<workflow-states>
+		<workflow-state ref="1" state="INITIAL">
+			<name>New</name>
+			<description>Initial state for new investigations</description>
+			<transitions>
+				<transition to="2">
+					<action>Monitor data</action>
+				</transition>
+				
+				<transition to="3">
+					<action>Communicate status</action>
+				</transition>
+				
+				<transition to="4">
+					<action>Contact healthcare facilities</action>
+				</transition>
+
+				<transition to="5">
+					<action>Conclude investigation</action>
+				</transition>
+			</transitions>
+		</workflow-state>
+		
+		<workflow-state ref="2" state="TRANSITIONAL">
+			<name>Monitoring Data</name>
+			<description>Monitoring Data</description>
+			<transitions>
+				<transition to="3">
+					<action>Communicate status</action>
+				</transition>
+				
+				<transition to="4">
+					<action>Contact healthcare facilities</action>
+				</transition>
+
+				<transition to="5">
+					<action>Conclude investigation</action>
+				</transition>
+			</transitions>
+		</workflow-state>
+		
+		<workflow-state ref="3" state="TRANSITIONAL">
+			<name>Communicating Status</name>
+			<description>Communicating Status</description>
+			<transitions>
+				<transition to="2">
+					<action>Monitor data</action>
+				</transition>
+				
+				<transition to="4">
+					<action>Contact healthcare facilities</action>
+				</transition>
+
+				<transition to="5">
+					<action>Conclude investigation</action>
+				</transition>
+			</transitions>
+		</workflow-state>
+		
+		<workflow-state ref="4" state="TRANSITIONAL">
+			<name>Contacting Healthcare Facilities</name>
+			<description>Contacting Healthcare Facilities</description>
+			<transitions>
+				<transition to="2">
+					<action>Monitor data</action>
+				</transition>
+				
+				<transition to="3">
+					<action>Communicate status</action>
+				</transition>
+
+				<transition to="5">
+					<action>Conclude investigation</action>
+				</transition>
+			</transitions>
+		</workflow-state>
+		
+		<workflow-state ref="5" state="TRANSITIONAL">
+			<name>Concluding</name>
+			<description>Concluding</description>
+			<transitions>
+				<transition to="6">
+					<action>Resolve as indeterminate</action>
+				</transition>
+				
+				<transition to="7">
+					<action>Resolve as other health event</action>
+				</transition>
+				
+				<transition to="8">
+					<action>Resolve as environmental health event</action>
+				</transition>
+				
+				<transition to="9">
+					<action>Resolve as disease outbreak due to bioterrorism</action>
+				</transition>
+				
+				<transition to="10">
+					<action>Resolve as naturally occurring disease outbreak</action>
+				</transition>
+				
+				<transition to="11">
+					<action>Resolve as seasonal illness health event</action>
+				</transition>
+			</transitions>
+		</workflow-state>
+		
+		<workflow-state ref="6" state="TERMINAL">
+			<name>Indeterminate</name>
+			<description>Indeterminate</description>
+			<transitions>
+				<transition to="1">
+					<action>Reopen</action>
+				</transition>
+			</transitions>
+		</workflow-state>
+		
+		<workflow-state ref="7" state="TERMINAL">
+			<name>Other Health Event</name>
+			<description>Other Health Event</description>
+			<transitions>
+				<transition to="1">
+					<action>Reopen</action>
+				</transition>
+			</transitions>
+		</workflow-state>
+		
+		<workflow-state ref="8" state="TERMINAL">
+			<name>Environmental Health Event</name>
+			<description>Environmental Health Event</description>
+			<transitions>
+				<transition to="1">
+					<action>Reopen</action>
+				</transition>
+			</transitions>
+		</workflow-state>
+		
+		<workflow-state ref="9" state="TERMINAL">
+			<name>Disease Outbreak due to Bioterrorism</name>
+			<description>Disease Outbreak due to Bioterrorism</description>
+			<transitions>
+				<transition to="1">
+					<action>Reopen</action>
+				</transition>
+			</transitions>
+		</workflow-state>
+		
+		<workflow-state ref="10" state="TERMINAL">
+			<name>Naturally Occurring Disease Outbreak</name>
+			<description>Naturally Occurring Disease Outbreak</description>
+			<transitions>
+				<transition to="1">
+					<action>Reopen</action>
+				</transition>
+			</transitions>
+		</workflow-state>
+		
+		<workflow-state ref="11" state="TERMINAL">
+			<name>Seasonal Illness Health Event</name>
+			<description>Seasonal Illness Health Event</description>
+			<transitions>
+				<transition to="1">
+					<action>Reopen</action>
+				</transition>
+			</transitions>
+		</workflow-state>
+	</workflow-states>
+	
+</workflow>

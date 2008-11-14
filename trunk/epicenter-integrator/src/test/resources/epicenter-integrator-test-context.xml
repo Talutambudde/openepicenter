@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:sm="http://servicemix.apache.org/config/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:test="urn:test" xmlns:epicenter="http://epicenter.hmsinc.com/integrator/1.0"
+	xsi:schemaLocation="
+  	   	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+  	   	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+  	   	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+  	   	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+  	   	http://servicemix.apache.org/config/1.0 http://repo1.maven.org/maven2/org/apache/servicemix/servicemix-core/3.2/servicemix-core-3.2.xsd">
+
+	<jee:jndi-lookup id="transactionManager" jndi-name="java:comp/UserTransaction" />
+
+	<!-- JPA EntityManager -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" depends-on="ehCacheManager">
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="org.hibernate.dialect.DerbyDialect" />
+				<property name="generateDdl" value="false" />
+			</bean>
+		</property>
+		<property name="persistenceUnitName" value="epicenter-model" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.transaction.manager_lookup_class">
+					com.hmsinc.mergence.util.hibernate.TransactionManagerLookup
+				</prop>
+				<prop key="javax.persistence.transactionType">JTA</prop>
+				<prop key="javax.persistence.jtaDataSource">java:comp/env/jdbc/datastore</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<import resource="classpath:epicenter-repository-beans.xml" />
+
+	<sm:container id="jbi" embedded="true" createMBeanServer="false" createJmxConnector="false"
+		transactionManager="#transactionManager">
+
+		<sm:activationSpecs>
+
+			<sm:activationSpec id="epicenter">
+				<sm:component>
+					<epicenter:component>
+						<epicenter:endpoints>
+							<epicenter:endpoint endpoint="endpoint" service="test:epicenter" />
+						</epicenter:endpoints>
+					</epicenter:component>
+				</sm:component>
+			</sm:activationSpec>
+
+		</sm:activationSpecs>
+	</sm:container>
+
+
+</beans>

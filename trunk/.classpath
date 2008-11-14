@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="epicenter-common/target/classes" path="epicenter-common/src/main/java"/>
+	<classpathentry kind="src" output="epicenter-common/target/test-classes" path="epicenter-common/src/test/java"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-common/target/classes" path="epicenter-common/src/main/resources"/>
+	<classpathentry kind="src" output="epicenter-classifier/target/classes" path="epicenter-classifier/src/main/java"/>
+	<classpathentry kind="src" output="epicenter-classifier/target/classes" path="epicenter-classifier/target/generated-sources/xjc"/>
+	<classpathentry kind="src" output="epicenter-classifier/target/test-classes" path="epicenter-classifier/src/test/java"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-classifier/target/classes" path="epicenter-classifier/src/main/resources"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-classifier/target/test-classes" path="epicenter-classifier/src/test/resources"/>
+	<classpathentry kind="src" output="epicenter-classifier-data/target/test-classes" path="epicenter-classifier-data/src/test/java"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-classifier-data/target/classes" path="epicenter-classifier-data/src/main/resources"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-classifier-data/target/test-classes" path="epicenter-classifier-data/src/test/resources"/>
+	<classpathentry kind="src" output="epicenter-model/target/classes" path="epicenter-model/src/main/java"/>
+	<classpathentry kind="src" output="epicenter-model/target/test-classes" path="epicenter-model/src/test/java"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-model/target/classes" path="epicenter-model/src/main/resources"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-model/target/test-classes" path="epicenter-model/src/test/resources"/>
+	<classpathentry kind="src" output="epicenter-services/target/classes" path="epicenter-services/src/main/java"/>
+	<classpathentry kind="src" output="epicenter-services/target/test-classes" path="epicenter-services/src/test/java"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-services/target/classes" path="epicenter-services/src/main/resources"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-services/target/test-classes" path="epicenter-services/src/test/resources"/>
+	<classpathentry kind="src" output="epicenter-integrator/target/classes" path="epicenter-integrator/src/main/java"/>
+	<classpathentry kind="src" output="epicenter-integrator/target/test-classes" path="epicenter-integrator/src/test/java"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-integrator/target/classes" path="epicenter-integrator/src/main/resources"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-integrator/target/classes" path="epicenter-integrator/target/xbean"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-integrator/target/test-classes" path="epicenter-integrator/src/test/resources"/>
+	<classpathentry kind="src" output="epicenter-spatial/target/classes" path="epicenter-spatial/src/main/java"/>
+	<classpathentry kind="src" output="epicenter-spatial/target/test-classes" path="epicenter-spatial/src/test/java"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-spatial/target/classes" path="epicenter-spatial/src/main/resources"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-spatial/target/test-classes" path="epicenter-spatial/src/test/resources"/>
+	<classpathentry kind="src" output="epicenter-surveillance/target/classes" path="epicenter-surveillance/src/main/java"/>
+	<classpathentry kind="src" output="epicenter-surveillance/target/test-classes" path="epicenter-surveillance/src/test/java"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-surveillance/target/classes" path="epicenter-surveillance/src/main/resources"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-surveillance/target/test-classes" path="epicenter-surveillance/src/test/resources"/>
+	<classpathentry kind="src" output="epicenter-webapp/target/classes" path="epicenter-webapp/src/main/java"/>
+	<classpathentry kind="src" output="epicenter-webapp/target/test-classes" path="epicenter-webapp/src/test/java"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-webapp/target/classes" path="epicenter-webapp/src/main/resources"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-webapp/target/test-classes" path="epicenter-webapp/src/test/resources"/>
+	<classpathentry kind="src" output="epicenter-tools/target/classes" path="epicenter-tools/src/main/java"/>
+	<classpathentry excluding="**" kind="src" output="epicenter-tools/target/classes" path="epicenter-tools/src/main/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER/modules"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

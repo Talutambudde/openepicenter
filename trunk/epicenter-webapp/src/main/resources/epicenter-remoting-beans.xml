@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+						http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+			
+	
+	<!-- Log templates for activity entries -->
+	<bean id="activityLogTemplates" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="classpath:templates/activity-log.properties" />
+	</bean>
+
+
+	<!-- Map feature and query cache -->
+	<bean id="mapCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheName" value="com.hmsinc.epicenter.webapp.MapCache" />
+		<property name="timeToLive" value="300" />
+		<property name="maxElementsInMemory" value="1000" />
+		<property name="maxElementsOnDisk" value="10000" />
+		<property name="overflowToDisk" value="true" />
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean>
+	
+	<bean id="mapCacheStatisticsMBean" class="net.sf.ehcache.management.CacheStatistics">
+		<constructor-arg ref="mapCache" />
+	</bean>
+	
+	<bean id="mapCacheMBean" class="net.sf.ehcache.management.CacheConfiguration">
+		<constructor-arg ref="mapCache" />
+	</bean>
+	
+	
+	<!-- Chart Service -->
+	<bean id="chartCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheName" value="com.hmsinc.epicenter.webapp.ChartCache" />
+		<property name="timeToIdle" value="3600" />
+		<property name="timeToLive" value="3600" />
+		<property name="overflowToDisk" value="true" />
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean>
+
+
+	<!-- Antisamy (HTML sanitizer) -->
+	<bean id="antiSamy" class="org.owasp.validator.html.AntiSamy" />
+	
+	<bean id="antiSamyPolicy" class="com.hmsinc.epicenter.webapp.util.AntiSamyPolicyFactoryBean">
+		<property name="location" value="classpath:antisamy.xml" />
+	</bean>
+	
+	
+	<!-- DWR Configuration -->
+	<dwr:annotation-config />
+	
+	<dwr:configuration>
+	
+		<!-- Converter for Joda DateTime objects -->
+		<dwr:init>
+			<dwr:converter id="jodaDateTime" class="com.hmsinc.epicenter.webapp.util.DateTimeConverter" />
+		</dwr:init>
+		
+		<dwr:convert class="org.joda.time.DateTime" type="jodaDateTime" />
+		
+		
+		<!-- Convert exceptions -->
+		<dwr:convert class="java.lang.Exception" type="exception"/>
+		
+		<dwr:convert class="java.lang.StackTraceElement" type="bean"/>
+				
+		
+		<!-- DWR mappings between data model and presentation tier. 
+			 Always be sure to sniff AJAX requests to be sure only the required properties are sent. -->
+		
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.model.analysis.classify.Classifier">
+			<dwr:include method="id" />
+			<dwr:include method="name" />
+			<dwr:include method="description" />
+			<dwr:include method="beta" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.model.analysis.classify.Classification">
+			<dwr:include method="id" />
+			<dwr:include method="category" />
+		</dwr:convert>
+
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.model.geography.Geography">
+			<dwr:include method="id" />
+			<dwr:include method="name" />
+			<dwr:include method="displayName" />
+		</dwr:convert>
+		
+		<dwr:convert type="hibernate3" class="com.hmsinc.epicenter.model.provider.Facility">
+			<dwr:exclude method="patients" />
+			<dwr:exclude method="geometry" />
+		</dwr:convert>	
+		
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.model.permission.EpiCenterUser">
+			<dwr:include method="id" />
+			<dwr:include method="username" />
+			<dwr:include method="emailAddress" />
+			<dwr:include method="firstName" />
+			<dwr:include method="middleInitial" />
+			<dwr:include method="lastName" />
+			<dwr:include method="title" />
+			<dwr:include method="organization" />
+			<dwr:include method="address" />
+			<dwr:include method="city" />
+			<dwr:include method="state" />
+			<dwr:include method="zipcode" />
+			<dwr:include method="phoneNumber" />
+			<dwr:include method="faxNumber" />
+			<dwr:include method="roles" />
+			<dwr:include method="organizations" />
+			<dwr:include method="visibleRegionEnvelope" />
+			<dwr:include method="preferences" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.model.permission.EpiCenterRole">
+			<dwr:include method="id" />
+			<dwr:include method="permission" />
+			<dwr:include method="description" />
+			<dwr:include method="authority" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.model.permission.Organization">
+			<dwr:include method="id" />
+			<dwr:include method="name" />
+			<dwr:include method="workflow" />
+			<dwr:include method="authoritativeRegion" />
+			<dwr:include method="authorizedRegions" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.model.permission.AuthorizedRegion">
+			<dwr:include method="type" />
+			<dwr:include method="geography" />
+			<dwr:include method="grantedBy" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.model.surveillance.SurveillanceTask">
+			<dwr:include method="id" />
+			<dwr:include method="description" />
+			<dwr:include method="geography" />
+			<dwr:include method="aggregateType "/>
+			<dwr:include method="location" />
+			<dwr:include method="classifier" />
+			<dwr:include method="delay" />
+			<dwr:include method="enabled" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.model.surveillance.SurveillanceMethod">
+			<dwr:include method="id" />
+			<dwr:include method="name" />
+			<dwr:include method="description" />
+			<dwr:include method="normalize" />
+		</dwr:convert>
+	
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.model.workflow.Workflow">
+			<dwr:include method="id" />
+			<dwr:include method="name" />
+			<dwr:include method="description" />
+			<dwr:include method="states" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.model.workflow.WorkflowState">
+			<dwr:include method="id" />
+			<dwr:include method="name" />
+			<dwr:include method="stateType" />
+			<dwr:include method="transitions" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.model.workflow.WorkflowTransition">
+			<dwr:include method="id" />
+			<dwr:include method="action" />
+			<dwr:include method="toState" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.model.workflow.EventDisposition">
+			<dwr:include method="id" />
+			<dwr:include method="name" />
+			<dwr:include method="type" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.AnalysisParametersDTO" />
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.ActivityDTO" />
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.CasesDTO" />
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.CasesDetailDTO" />
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.AnomalyDTO" />
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.AnomalyDetailsDTO" />
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.AuthorizedRegionDTO" />
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.DataTypeDTO" />
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.GeographyDTO" />
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.InvestigationDTO" />
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.InvestigationDetailsDTO" />
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.KeyValueDTO" />	
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.ListView" />
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.webapp.dto.TreeNode" />
+		
+		<dwr:convert type="bean" class="com.hmsinc.epicenter.spatial.render.SpatialScanResult" />
+		
+		<dwr:convert type="bean" class="com.vividsolutions.jts.geom.Envelope">
+			<dwr:include method="minX" />
+			<dwr:include method="minY" />
+			<dwr:include method="maxX" />
+			<dwr:include method="maxY" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.vividsolutions.jts.geom.Point">
+			<dwr:include method="x" />
+			<dwr:include method="y" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.hmsinc.ts4j.analysis.univariate.ParameterMetadata">
+			<dwr:include method="name" />
+			<dwr:include method="description" />
+			<dwr:include method="defaultValue" />
+			<dwr:include method="typeAsString" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.hmsinc.ts4j.analysis.univariate.AnalyzerMetadata">
+			<dwr:include method="algorithms" />
+		</dwr:convert>
+		
+		<dwr:convert type="bean" class="com.hmsinc.ts4j.analysis.univariate.DescriptiveUnivariateAnalyzer">
+			<dwr:include method="name" />
+			<dwr:include method="description" />
+			<dwr:include method="metadata" />
+		</dwr:convert>
+		
+		<dwr:convert type="enum" class="com.hmsinc.ts4j.TimeSeriesPeriod" />
+		
+		<dwr:convert type="enum" class="com.hmsinc.epicenter.model.analysis.AnalysisLocation" />
+		<dwr:convert type="enum" class="com.hmsinc.epicenter.model.analysis.DataConditioning" />
+		<dwr:convert type="enum" class="com.hmsinc.epicenter.model.analysis.DataRepresentation" />
+		<dwr:convert type="enum" class="com.hmsinc.epicenter.model.analysis.DescriptiveAnalysisType" />
+		<dwr:convert type="enum" class="com.hmsinc.epicenter.model.geography.GeographyType" />
+		<dwr:convert type="enum" class="com.hmsinc.epicenter.model.surveillance.SurveillanceResultType" />
+		<dwr:convert type="enum" class="com.hmsinc.epicenter.model.permission.AuthorizedRegionType" />
+		<dwr:convert type="enum" class="com.hmsinc.epicenter.model.workflow.WorkflowStateType" />
+		<dwr:convert type="enum" class="com.hmsinc.epicenter.webapp.util.Visibility" />
+	</dwr:configuration>
+	
+	
+	<!-- Service Beans -->
+	<bean id="adminService" class="com.hmsinc.epicenter.webapp.remoting.AdminService" />
+	
+	<bean id="analysisService" class="com.hmsinc.epicenter.webapp.remoting.AnalysisService" />
+	
+	<bean id="metadataService" class="com.hmsinc.epicenter.webapp.remoting.MetadataService" />
+		
+	<bean id="geographyService" class="com.hmsinc.epicenter.webapp.remoting.GeographyService" />
+	
+	<bean id="optionsService" class="com.hmsinc.epicenter.webapp.remoting.OptionsService" />
+		
+	<bean id="patientService" class="com.hmsinc.epicenter.webapp.remoting.PatientService" />
+	
+	<bean id="providerService" class="com.hmsinc.epicenter.webapp.remoting.ProviderService" />
+	
+	<bean id="anomalyService" class="com.hmsinc.epicenter.webapp.remoting.EventService" />
+	
+	<bean id="workflowService" class="com.hmsinc.epicenter.webapp.remoting.WorkflowService" />
+	
+	<bean id="forecastingService" class="com.hmsinc.epicenter.webapp.remoting.ForecastingService" />
+	
+</beans>

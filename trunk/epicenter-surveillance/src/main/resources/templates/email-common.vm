@@ -1,0 +1,39 @@
+#*
+ * Copyright (C) 2008 University of Pittsburgh
+ * 
+ * 
+ * This file is part of Open EpiCenter
+ * 
+ *     Open EpiCenter is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ * 
+ *     Open EpiCenter is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ * 
+ *     You should have received a copy of the GNU General Public License
+ *     along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+ *   
+ *#
+#set( $anomaly = ${event} )
+#set( $geography = ${anomaly.Geography.DisplayName} )
+#set( $observedValue = ${number.format("##", ${anomaly.ObservedValue})} )
+#set( $normalizedValue = ${number.format("#0.00", ${anomaly.NormalizedValue})} )
+#set( $totalValue = ${number.format("##", ${anomaly.TotalValue})} )
+#set( $predictedObservedValue = ${number.format("#0.00", $predictedObservedValueDouble)} )
+#set( $thresholdValue = ${number.format("#0.00", ${anomaly.ObservedThreshold})} )
+#set( $category = ${anomaly.Classification.Category} )
+#set( $classifier = ${anomaly.Classification.Classifier.Name} )
+#set( $startTime = ${date.format('MMMM dd, yyyy', 'short', ${analysisStartTime})} )
+#set( $endTime = ${date.format('MMMM dd, yyyy', 'short', ${anomaly.AnalysisTimestamp})} )
+#set( $analysisMethod = ${anomaly.Method.Name} )
+#set( $anomalyDateTime = ${date.format('long', ${anomaly.AnalysisTimestamp})} )
+#set( $anomalyTime = ${date.format('none', 'short', ${anomaly.AnalysisTimestamp})} )
+#set( $detectionDateTime = ${date.format('long', ${anomaly.Timestamp})} )
+#set( $indication = ${anomaly.set.datatype.name} )
+#set( $analysisLocation = ${event.Task.Location.DisplayName} )

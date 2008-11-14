@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+
+<configuration>
+	
+	<jmxConfigurator />
+	
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d %-5p [%t] %c: %mdc{facility}%m %n</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>logs/epicenter.log</File>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d %-5p [%t] %c: %mdc{facility}%m %n</Pattern>
+		</layout>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<FileNamePattern>logs/epicenter.log.%i</FileNamePattern>
+			<MinIndex>1</MinIndex>
+			<MaxIndex>5</MaxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>50MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+	
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="stdout" />
+	</root>
+	
+	<logger name="com.hmsinc">
+		<level value="DEBUG" />
+	</logger>
+	
+	<logger name="ca.uhn.hl7v2">
+		<level value="WARN" />
+	</logger>
+	
+	<logger name="com.hmsinc.epicenter.analysis">
+		<level value="INFO" />
+	</logger>
+	
+	<logger name="org.hibernate.cfg">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="org.hibernate.SQL">
+		<level value="DEBUG" />
+	</logger>
+	
+	<logger name="org.hibernate.cache">
+		<level value="INFO" />
+	</logger>
+	
+	<logger name="net.sf.ehcache">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="org.apache.xbean">
+		<level value="WARN" />
+	</logger>
+	
+	<logger name="org.apache.velocity">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="org.springframework.aop.framework.Cglib2AopProxy">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="PerformanceMonitor">
+		<level value="TRACE" />
+	</logger>
+	
+</configuration>

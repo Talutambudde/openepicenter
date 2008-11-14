@@ -1,0 +1,224 @@
+#*
+ * Copyright (C) 2008 University of Pittsburgh
+ * 
+ * 
+ * This file is part of Open EpiCenter
+ * 
+ *     Open EpiCenter is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ * 
+ *     Open EpiCenter is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ * 
+ *     You should have received a copy of the GNU General Public License
+ *     along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+ *   
+ *#
+#parse("header.vm")
+
+<script type="text/javascript">
+
+Ext.override(Ext.form.Field, {
+
+    findLabel: function(){
+    
+        var wrapDiv = this.getEl().up('div.x-form-item');
+        if (wrapDiv) {
+            return wrapDiv.child('label');
+        }
+    },
+    
+    afterRender: function(){
+        if (this.qtipText) {
+            Ext.QuickTips.register({
+                target: this.getEl(),
+                title: '',
+                text: this.qtipText,
+                enabled: true
+            });
+            var label = this.findLabel();
+            if (label) {
+                Ext.QuickTips.register({
+                    target: label,
+                    title: '',
+                    text: this.qtipText,
+                    enabled: true
+                });
+            }
+        }
+        Ext.form.Field.superclass.afterRender.call(this);
+        this.initEvents();
+    }
+});
+
+Ext.form.Field.prototype.msgTarget = 'side';
+
+EpiCenter.Login = function() {
+	
+ 	var username = new Ext.form.TextField({
+		fieldLabel: 'Username',
+		name: 'j_username',
+		allowBlank: false,
+		tabIndex: 1,
+		width: 165
+	});
+				
+	var password = new Ext.form.TextField({
+		fieldLabel: 'Password',
+		name: 'j_password',
+		inputType: 'password',
+		allowBlank: false,
+		tabIndex: 2,
+		width: 165
+	});
+				
+	var rememberMe = new Ext.form.Checkbox({
+		fieldLabel: 'Remember Me',
+		name: '_spring_security_remember_me',
+		tabIndex: 3,
+		qtipText: "This feature will keep you logged into the user inteface unless you log out. Do not use this feature if you are on a shared computer."
+	});
+	
+	// Login form integrates with Acegi
+ 	var login = new Ext.form.FormPanel({
+ 		id: "login-form",
+ 		border: false,
+		labelAlign: 'left',
+		labelWidth: 100, 
+		buttonAlign: 'right',
+		method: 'POST',
+		url: 'j_spring_security_check',
+		baseParams: { ajax: 'true' },
+		items: [ username, password, rememberMe ]
+	});
+	
+	function doLogin() {
+		if (!username.getValue()) {
+			login.items.item(0).focus();
+		} else if (!password.getValue()) {
+			login.items.item(1).focus();
+		} else if (login.getForm().isValid()) {
+			login.getForm().submit({
+				waitMsg: 'Logging you in..',
+				reset: false,
+				success: function (form, action) {
+				
+					// Redirect to the main app if Acegi authorizes.
+					if (action.result.url) {
+						dialog.hide();
+						window.location = action.result.url;
+					} else {
+						Ext.MessageBox.alert('Failure', "Login Failed");
+					}
+           		}
+			});
+		}
+	}
+	
+	function forgotPassword() {
+			
+		Ext.MessageBox.show({
+			title: "Forgot Password", 
+			msg: "Enter your email address and an email containing with instructions on how to reset your password will be sent to you.", 
+			buttons: Ext.MessageBox.OKCANCEL,
+			icon: Ext.MessageBox.INFO,
+			modal: true,
+			width: 400,
+			prompt: true,
+			animEl: dialog.body,
+			fn: function(btn, text) {
+				if (btn == "ok" && text) {
+					Ext.Ajax.request({
+						url: "password-assistance.html",
+						params: { email: text },
+						method: "POST",
+						success: function(response) {
+							var r = Ext.util.JSON.decode(response.responseText);
+							Ext.MessageBox.show({
+								title: "Forgot Password",
+								msg: (r.success ? 
+									"Please follow the instructions in the email that has been sent to reset your password." :
+									"We were unable to send you a password reminder email."),
+								modal: true,
+								width: 400,
+								buttons: Ext.MessageBox.OK,
+								icon: (r.success ? Ext.MessageBox.INFO : Ext.MessageBox.ERROR)
+							});
+						}
+					});
+				}
+			}
+		});
+	}
+		
+	var dialog = new Ext.Window({
+ 		width: 400,
+ 		modal: false,
+ 		draggable: true,
+ 		closable: false,
+ 		plain: false,
+ 		resizable: false,
+ 		title: "Login",
+ 		buttons: [{
+ 			iconCls: "icon-go",
+ 			text: "Login",
+ 			handler: doLogin,
+ 			tabIndex: 4
+ 		}, {
+ 			iconCls: "icon-find",
+ 			text: "Forgot Password",
+ 			handler: forgotPassword,
+ 			tabIndex: 5
+ 		} ],
+ 		items: [ {
+ 			html: '<div style="text-align: center; padding-top: 10px;"><img src="assets/epicenter/images/hms_logo.png" alt="Health Monitoring Systems"/></div>',
+ 			border: false,
+ 			height: 95
+ 		}, {
+ 			border: false,
+ 			bodyStyle: "padding-left: 60px",
+ 			items: [ login ] 
+ 		}, {
+ 			html: '<div style="padding-top: 5px; text-align: center;" ><span>$appVersion</span></div>',
+ 			border: false,
+ 			height: 30
+ 		} ]
+ 	});
+
+	return {
+	
+		init : function() {
+ 			
+ 			Ext.getBody().addClass("horizgradient");
+ 									
+			dialog.on('show', function() { 
+				login.items.item(0).focus.defer(100, login.items.item(0)); }); 
+			
+			username.on("specialkey", function(obj, e) {
+				if (e.getKey() == e.RETURN) {
+					doLogin();
+				}
+			});
+
+			password.on("specialkey", function(obj, e) {
+				if (e.getKey() == e.RETURN) {
+					doLogin();
+				}
+			});
+
+			dialog.show(document.body);
+		}
+	};
+}();
+
+Ext.onReady(EpiCenter.Login.init, EpiCenter.Login, true);
+
+</script>
+
+#parse("footer.vm")

@@ -1,0 +1,737 @@
+/**
+ * Copyright (C) 2008 University of Pittsburgh
+ * 
+ * 
+ * This file is part of Open EpiCenter
+ * 
+ *     Open EpiCenter is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ * 
+ *     Open EpiCenter is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ * 
+ *     You should have received a copy of the GNU General Public License
+ *     along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+ *   
+ */
+@CHARSET "UTF-8";
+
+html,body {
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+	overflow: hidden;
+	height: 100%;
+	background-color: white;
+	font-size: 11px;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size-adjust: 0.55 !important;
+}
+
+.horizgradient {
+	background-image: url("../images/bg-body.jpg");
+}
+
+label {
+	font-weight: bold;
+	font-size: 11px;
+}
+
+.logout {
+	font-weight: bold;
+	text-align: center;
+}
+
+.icon-organization {
+	background-image: url("../images/icons/organization.png") !important;
+}
+
+.icon-user {
+	background-image: url("../images/icons/user.png") !important;
+}
+
+.icon-trash {
+	background-image: url("../images/icons/trash.png") !important;
+}
+
+.icon-gear {
+	background-image: url("../images/icons/gear.png") !important;
+	zoom: 1;
+	min-height: 16px;
+}
+
+.icon-attach {
+	background-image: url("../images/icons/attach.png") !important;
+}
+
+.icon-information {
+	background-image: url("../images/icons/information.png") !important;
+}
+
+.icon-open {
+	background-image: url("../images/icons/open.png") !important;
+}
+
+.icon-go {
+	background-image: url("../images/icons/go.png") !important;
+}
+
+.icon-important {
+	background-image: url("../images/icons/important.png") !important;
+}
+
+.icon-find {
+	background-image: url("../images/icons/find.png") !important;
+}
+
+.icon-home {
+	background-image: url("../images/icons/home.png") !important;
+}
+
+.icon-tools {
+	background-image: url("../images/icons/tools.png") !important;
+}
+
+.icon-options {
+	background-image: url("../images/icons/options.png") !important;
+}
+
+.icon-image {
+	background-image: url("../images/icons/image.png") !important;
+}
+
+.icon-save {
+	background-image: url("../images/icons/save.png") !important;
+}
+
+.icon-form {
+	background-image: url("../images/icons/form.png") !important;
+}
+
+.icon-properties {
+	background-image: url("../images/icons/properties.png") !important;
+}
+
+.icon-monitor {
+	background-image: url("../images/icons/monitor.png") !important;
+}
+
+.icon-add {
+	background-image: url("../images/icons/add.png") !important;
+}
+
+#class .loading-indicator {
+	font-size: 12px;
+	height: 18px;
+}
+
+.loading-indicator {
+	font-size: 13px;
+	font-weight: bold;
+	position: absolute;
+	top: 35%;
+	left: 43%;
+	color: #444;
+	background-image: url("../../ext-2.1/images/default/shared/large-loading.gif");
+	background-repeat: no-repeat;
+	background-position: left;
+	padding: 10px 10px 10px 38px;
+	text-align: left;
+}
+
+#loading-mask {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 20000;
+	background-color: white;
+}
+
+#loading {
+	position: absolute;
+	left: 45%;
+	top: 40%;
+	padding: 2px;
+	z-index: 20001;
+	height: auto;
+}
+
+#loading img {
+	margin-bottom: 5px;
+}
+
+.logo {
+	padding-top: 4px;
+	padding-bottom: 6px;
+	text-align: center;
+}
+
+.applogo {
+	padding-top: 2px;
+	padding-left: 2px;
+}
+
+#main {
+	height: 100%;
+}
+
+.userinfo {
+	float: right;
+	padding-top: 5px;
+	margin-right: 5px;
+	text-align: right;
+	font-weight: bold;
+}
+
+.chart-container {
+	padding-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.chart {
+	padding-bottom: 10px;
+	text-align: center;
+	float: left;
+}
+
+.chart-closable {
+	background-image: url(../../ext-2.1/images/default/qtip/close.gif);
+	height: 15px;
+	width: 15px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: 1;
+	right: 0;
+	cursor: pointer;
+}
+
+.chart-inner {
+	display: table;
+	*position: relative;
+}
+
+.chart-info {
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+	display: table-cell;
+	*position: absolute;
+	*top: 50%;
+	*left: 50%;
+}
+
+.chart-info p {
+	word-wrap: break-word;
+	*position: relative;
+	*top: -50%;
+	*left: -50%;
+}
+
+
+
+.chartlabel {
+	width: 100%;
+	font-size: 11px;
+	padding-bottom: 6px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.chartfooter {
+	width: 100%;
+	text-align: center;
+	font-size: 10px;
+	font-weight: bold;
+	padding-top: 10px;
+	padding-bottom: 2px;
+	margin: 0;
+}
+
+.x-btn-center a {
+	text-decoration: none;
+	color: #233d6d;
+}
+
+.hide-label label {
+	display: none;
+}
+
+.hide-label .x-form-element {
+	padding-left: 0 !important;
+}
+
+.options {
+	padding-top: 10px;
+	width: 450px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#user-info-container {
+	width: 345px;
+	float: left;
+	margin-left: auto;
+}
+
+#change-password-container {
+	width: 345px;
+	float: right;
+	margin-right: auto;
+}
+
+#event-subscription-container {
+	width: 100%;
+	padding-top: 10px;
+}
+
+#events-activity-comments-left {
+	width: 500px;
+	padding-top: 10px;
+}
+
+.map-main {
+	text-align: center;
+}
+
+.map-container {
+	width: 100%;
+}
+
+.map-message-overlay-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.map-loading {
+	font-size: 22px;
+	font-weight: 600;
+	position: relative;
+	top: -55%;
+	width: 20%;
+	height: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 10;
+	opacity: 0.70;
+	filter: alpha(opacity = 70);
+}
+
+div.map-info-popup {
+	margin-top: 1em;
+	padding: 0 1em 0.5em 1em;
+	max-width: 30em;
+	max-height: 7em;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+div.map-info-popup p {
+	margin-top: 0.3em;
+	text-align: left;
+}
+
+div.map-caption {
+	width: 100%;
+}
+
+div.map-caption div{
+	margin: 0px 70px;
+	text-align: center;
+}
+
+div.map-caption p {
+	color: #003db2;
+	font-weight: bold;
+}
+
+div.legend-window {
+	width: 104px;
+	float: right;
+	overflow: hidden;
+}
+
+div.legend {
+	width: 101%;
+	border: 1px ridge #555;
+	z-index: 10;
+	padding: 0px;
+	background-image: url(../images/transw.png);
+	text-align: right;
+	font-size: 10px;
+}
+
+div.legend-padding {
+	padding: 2px;
+	margin: 0px;
+}
+
+div.legend p {
+	padding: 0 3px 5px 21px;
+	font-weight: bold;
+}
+
+div.legend dl {
+	width: 100%;
+}
+
+div.legend dl dt {
+	margin-left: 2px;
+	float: left;
+}
+
+div.map-legend dl dt {
+	width: 17px;
+}
+
+div.map-legend dl dd {
+	padding: 2px 3px 0 0;
+	height: 16px;
+}
+
+div.map-legend-box {
+	width: 15px;
+	height: 15px;
+	border: 1px solid #777;
+}
+
+.when-where-advanced {
+	text-align: left;
+	vertical-align: middle;
+	color: #15428B;
+	padding-right: 7px;
+}
+
+.admin-form {
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 10px;
+	width: 500px;
+}
+
+dl.chart-legend {
+	display: inline;
+}
+
+dl.chart-legend dt,
+dl.chart-legend dd {
+	display: inline;
+}
+
+dl.chart-legend dt {
+	width: 10px;
+	height: 10px;
+	border: black 1px solid;
+	margin-right: 0.5em;
+}
+
+dl.chart-legend dd {
+	margin-right: 1em;
+}
+
+
+#data-type-emergency-registrations .x-panel-body {
+	position: relative;
+}
+
+#event-info dl dt {
+	font-weight: bold;
+}
+
+#event-info dl dd {
+	margin-left: 4em;
+}
+
+.x-panel .x-menu-plain {
+	padding: 0;
+	border: 0;
+}
+
+/* CSS for PasswordField */
+.x-form-password-strengthMeter {
+        border: 1px solid #B5B8C8;
+        margin: 3px 0 3px 0;
+        /*background-image: url(/assets/ux/passwordfield/0.1/images/meter_background.gif);*/
+        background-image: url(../images/meter_background.gif);
+
+}
+.x-form-password-strengthMeter-focus {
+        border: 1px solid #7EADD9/*#000*/;
+}
+.x-form-password-scoreBar {
+        /*background-image: url(/assets/ux/passwordfield/0.1/images/meter.gif);*/
+        background-image: url(../images/meter.gif);
+        height: 10px;
+        width: 0;
+        line-height: 1px;
+        font-size: 1px;
+}
+
+.details-panel {
+	font-size: 12px;
+}
+
+.anomaly-details {
+	padding: 5px 5px 10px 5px;
+	color: #333333;
+	line-height: 1.4;
+}
+
+.anomaly-details li {
+	margin-left: 5px;
+}
+
+.anomaly-details-inner {
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.anomaly-details p {
+	margin-bottom: 10px;
+}
+
+.anomaly-details h3 {
+	font-weight: bold;
+}
+
+.anomaly-details h1 {
+	font-size: 13px;
+	font-weight: bold;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	margin-bottom: 7px;
+	text-align: center;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.anomaly-details a {
+	color: #15428b;
+}
+
+.when-where-advanced a,
+.anomaly-details a,
+.chartlabel a {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.activity-item ul,
+.activity-item ol {
+	list-style-position: outside;
+	padding-left: 2em;
+}
+
+.activity-item ul {
+	list-style-type: disc;
+}
+
+.activity-item ol {
+	list-style-type: decimal;
+}
+
+.anomaly-item,
+.activity-item {
+	padding: 5px;
+	color: #333333;
+	line-height: 1.4;
+}
+
+.anomaly-item:hover,
+.activity-item:hover,
+.linked-view-item:hover {
+	background: #dfe9f7 url(../images/list-item-hover.png) repeat-x scroll top left;
+}
+
+.anomaly-item-selectable:hover {
+	cursor: pointer;
+}
+
+.anomaly-item-unselectable:hover {
+	color: #777777;
+	cursor: default;
+}
+
+.linked-view-item:hover {
+	cursor: pointer;
+}
+
+.anomaly-item,
+.linked-view-item {
+    zoom: 1;
+    padding: 5px 8px;
+}
+
+/* Tricking firefox into making item clear the image float hight without extra markup, IE does it
+ * from birth */
+.anomaly-item:after,
+.linked-view-item:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+.linked-view-item div,
+.anomaly-item div {
+	float: left;
+	width: 20px;
+	height: 36px;
+	background-attachment: scroll;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.anomaly-item div {
+	background-image: url(../images/markers/orange-light/marker.png);
+}
+
+.anomaly-item:hover div {
+	background-image: url(../images/markers/orange-dark/marker.png);
+}
+
+.anomaly-item-inactive div {
+	background-image: url(../images/markers/amber-light/marker.png);
+}
+
+.anomaly-item-inactive:hover div {
+	background-image: url(../images/markers/amber-dark/marker.png);
+}
+
+.anomaly-item-inactive {
+	color: #555;
+}
+
+.anomaly-item p {
+	margin-left: 40px;
+}
+
+.anomaly-item strong {
+	font-weight: bold;
+}
+
+
+/* CSS for LinkedViewItem */
+
+.linked-view-item p {
+    font-size: 11px;
+	margin-left: 30px;
+	color: #15428b;
+}
+
+.linked-view-item-selected {
+	border: 1px solid #eeeeee;
+	font-weight: bold;
+}
+
+.linked-view-header {
+	background: transparent url(../../ext-2.1/images/default/panel/white-top-bottom.gif) repeat-x scroll 0pt -1px;
+	color: #15428B;
+	font-weight: bold;
+	text-align: center;	
+	margin: auto;
+	width: 100%;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	
+}
+
+p.no-data-message {
+	padding: 0.3em 0.7em;
+}
+
+div.investigation-resolution-main p {
+	font-size: 12px;
+	line-height: 1.5em;
+	margin-bottom: 20px;
+}
+
+div.investigation-resolution-main p em {
+	color: blue;
+}
+
+/* CSS for MultiSelect */
+.ux-mselect{
+    overflow:auto;
+    background:white;
+    position:relative; /* for calculating scroll offsets */
+    zoom:1;
+}
+.ux-mselect-item{
+    font-size: 12px;
+    padding:2px;
+    border:1px solid #fff;
+    white-space: nowrap;
+    cursor:pointer;
+}
+.ux-mselect-selected{
+	border:1px dotted #a3bae9 !important;
+    background:#DFE8F6;
+    cursor:pointer;
+}
+
+.x-tbar-page-number {
+	margin-left: 3px;
+}
+
+/* CSS for RowActions plugin */
+.ux-row-action-cell .x-grid3-cell-inner {
+	padding:1px 0 0 0;
+}
+.ux-row-action-item {
+	float:left;
+	min-width:16px;
+	height:16px;
+	background-repeat:no-repeat;
+	margin: 0 5px 0 0;
+	cursor:pointer;
+	overflow:hidden;
+}
+.ext-ie .ux-row-action-item {
+	width:16px;
+}
+.ux-row-action-item span {
+	vertical-align:middle;
+	padding:0 0 0 20px;
+	line-height:18px;
+}
+.x-grid-group-hd div {
+	position:relative;
+}
+.ux-grow-action-item {
+	min-width:16px;
+	height:16px;
+	background-repeat:no-repeat;
+	background-position: 0 50% ! important;
+	margin: 0 1px 0 8px;
+	padding: 0 0 1px 16px ! important;
+	cursor:pointer;
+ 	overflow:hidden;
+	display:inline;
+}
+.ext-ie .ux-grow-action-item {
+	width:16px;
+}
+.ux-action-right {
+	display:block;
+	float:right;
+	margin: 0 3px 0 2px;
+	top:-13px;
+	padding: 0 ! important;
+}

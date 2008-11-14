@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<classifier-config xmlns="http://epicenter.hmsinc.com/classifier">
+	<name>Infectious Disease Symptoms</name>
+	<description>Generated Sat Feb 10 20:52:53 EST 2007</description>
+	<version>1.0</version>
+	<implementation>com.hmsinc.epicenter.classifier.regex.RegexClassifier</implementation>
+
+	<training-set>
+		<category name="Abdominal">
+			<entry value="abd pai">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="abd cram">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="abdo pai">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="abdo cramp">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="abdominal pai">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="abdominal cram">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="belly pai">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="belly cram">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="belly hur">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="stomach pai">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="stom pai">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="stomach cram">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="stom cram">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="stomach hur">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+			<entry value="stom hur">
+				<negative-indicators>
+					<entry value="preg" />
+				</negative-indicators>
+			</entry>
+		</category>
+		<category name="Abortion">
+			<entry value="abortion" />
+			<entry value="miscar" />
+			<entry value="vaginal bleed" />
+			<entry value="vaginal pain" />
+			<entry value="vaginal blood" />
+			<entry value="vag bleed" />
+			<entry value="vag blood" />
+			<entry value="vag pain" />
+			<entry value="passing clots" />
+			<entry value="preg" />
+		</category>
+		<category name="Arthralgia">
+			<entry value="arthr" />
+			<entry value="joint" />
+			<entry value="ankle pain" />
+			<entry value="wrist pain" />
+			<entry value="knee pain" />
+			<entry value="elbow pain" />
+			<entry value="shoulder pain" />
+		</category>
+		<category name="Cough">
+			<entry value="cough">
+				<negative-indicators>
+					<entry type="SEGMENT" value="syr" />
+					<entry type="SEGMENT" value="vag" />
+				</negative-indicators>
+			</entry>
+			<entry value="pertussis" />
+			<entry value="hoarse" />
+			<entry value="barky" />
+			<entry value="croup" />
+			<entry value="coigh">
+				<negative-indicators>
+					<entry type="SEGMENT" value="syr" />
+					<entry type="SEGMENT" value="vag" />
+				</negative-indicators>
+			</entry>
+			<entry value="cold" />
+			<entry type="SEGMENT" value="flu" />
+		</category>
+		<category name="Diarrhea">
+			<entry value="loose stool" />
+			<entry value="runs" />
+			<entry value="diah" />
+			<entry value="diar" />
+			<entry value="nvd" />
+			<entry value="n,v,d" />
+			<entry type="SEGMENT" value="nd" />
+			<entry value="dirrhea" />
+			<entry value="runny stool" />
+		</category>
+		<category name="Edema">
+			<entry value="edema">
+				<negative-indicators>
+					<entry type="SEGMENT" value="site" />
+					<entry value="incision" />
+					<entry value="shunt" />
+					<entry value="ankle" />
+					<entry value="knee" />
+					<entry value="ear" />
+					<entry value="eye" />
+					<entry value="finger" />
+				</negative-indicators>
+			</entry>
+			<entry value="swell">
+				<negative-indicators>
+					<entry type="SEGMENT" value="site" />
+					<entry value="incision" />
+					<entry value="shunt" />
+					<entry value="ankle" />
+					<entry value="knee" />
+					<entry value="ear" />
+					<entry value="eye" />
+					<entry value="finger" />
+				</negative-indicators>
+			</entry>
+			<entry value="swoll">
+				<negative-indicators>
+					<entry type="SEGMENT" value="site" />
+					<entry value="incision" />
+					<entry value="shunt" />
+					<entry value="ankle" />
+					<entry value="knee" />
+					<entry value="ear" />
+					<entry value="eye" />
+					<entry value="finger" />
+				</negative-indicators>
+			</entry>
+		</category>
+		<category name="ENT">
+			<entry type="SEGMENT" value="ent" />
+			<entry value="congest" />
+			<entry value="sore thr" />
+			<entry value="sorethr" />
+			<entry value="runny nose" />
+			<entry value="chok">
+				<negative-indicators>
+					<entry type="SEGMENT" value="on" />
+				</negative-indicators>
+			</entry>
+			<entry value="chock">
+				<negative-indicators>
+					<entry type="SEGMENT" value="on" />
+				</negative-indicators>
+			</entry>
+			<entry value="earache" />
+			<entry value="ear pain" />
+			<entry value="ear pian" />
+			<entry value="ear ache" />
+			<entry value="ear drain" />
+			<entry value="ear inf" />
+			<entry value="ear swell" />
+			<entry value="ear swoll" />
+			<entry value="eye pain" />
+			<entry value="eye pian" />
+			<entry value="eye inf" />
+			<entry value="eye drain" />
+			<entry value="eye swell" />
+			<entry value="eye swoll" />
+			<entry value="nasal" />
+			<entry value="strep" />
+			<entry value="pullin" />
+			<entry value="throat" />
+			<entry value="sinus" />
+			<entry value="stuffy" />
+		</category>
+		<category name="Fatigue">
+			<entry value="fatigue" />
+			<entry type="SEGMENT" value="tired" />
+			<entry value="weak">
+				<negative-indicators>
+					<entry value="side" />
+				</negative-indicators>
+			</entry>
+			<entry value="letharg" />
+			<entry value="listless" />
+			<entry value="sluggish" />
+			<entry value="worn out" />
+			<entry value="increased sleep" />
+			<entry value="sleeping alot" />
+			<entry value="sleeping hard" />
+			<entry value="sleeping too" />
+			<entry value="polycythem" />
+			<entry value="poltcythem" />
+			<entry type="SEGMENT" value="dka" />
+			<entry type="SEGMENT" value="mono" />
+		</category>
+		<category name="Fever">
+			<entry value="fever" />
+			<entry type="SEGMENT" value="t\w*[0-9]+" />
+			<entry value="fev" />
+			<entry value="febrile" />
+			<entry type="SEGMENT" value="fb" />
+			<entry value="temperature" />
+			<entry value="fevr" />
+			<entry value="fver" />
+			<entry value="fevef" />
+			<entry value="chills" />
+			<entry value="temp" />
+			<entry value="sweats" />
+			<entry type="SEGMENT" value="flu" />
+			<entry value="pancreatit" />
+		</category>
+		<category name="Headache">
+			<entry value="headache" />
+			<entry type="SEGMENT" value="ha" />
+			<entry value="head ache" />
+			<entry value="head hurts" />
+			<entry value="head pounding" />
+			<entry value="head pain" />
+			<entry value="migr" />
+		</category>
+		<category name="Hemorrhaging">
+			<entry value="hemorr" />
+			<entry value="anemi" />
+			<entry value="bleed">
+				<negative-indicators>
+					<entry type="SEGMENT" value="site" />
+					<entry value="preg" />
+					<entry value="vaginal" />
+					<entry type="SEGMENT" value="vag" />
+				</negative-indicators>
+			</entry>
+			<entry value="blood in stool" />
+			<entry value="bloody stool" />
+			<entry value="dysent" />
+			<entry value="coughing blood" />
+			<entry value="bloody cough" />
+			<entry value="ing up blood" />
+			<entry value="ing blood" />
+			<entry value="petechiae" />
+			<entry value="rectal bleeding" />
+			<entry value="bloody diar" />
+			<entry value="blood in urine" />
+			<entry value="bloody urine" />
+			<entry value="sneezing blood" />
+			<entry value="sneezed blood" />
+			<entry value="bloody sneez" />
+			<entry value="blood comin" />
+		</category>
+		<category name="Jaundice">
+			<entry value="jaundic" />
+			<entry value="yellow" />
+			<entry value="pancreatit" />
+		</category>
+		<category name="Malaise">
+			<entry value="malaise" />
+			<entry value="uneasiness" />
+			<entry value="uneasy" />
+			<entry value="feel bad" />
+			<entry type="SEGMENT" value="ill" />
+			<entry value="illnes" />
+			<entry value="not eat" />
+			<entry value="wont eat" />
+			<entry value="cant eat" />
+			<entry type="SEGMENT" value="sick" />
+			<entry value="cryin" />
+			<entry value="screamin" />
+			<entry value="decreased po" />
+			<entry type="SEGMENT" value="dec po" />
+		</category>
+		<category name="Mental">
+			<entry value="mental" />
+			<entry value="depression" />
+			<entry value="not acting normal" />
+			<entry value="behavior" />
+			<entry value="psych" />
+			<entry value="anxiety" />
+			<entry value="anxious" />
+			<entry value="panic" />
+			<entry value="detox" />
+			<entry type="SEGMENT" value="od" />
+			<entry value="overdose" />
+			<entry value="abus">
+				<negative-indicators>
+					<entry value="physical" />
+					<entry value="phys" />
+				</negative-indicators>
+			</entry>
+			<entry value="chem dep" />
+			<entry value="chemical dep" />
+			<entry value="suicid" />
+		</category>
+		<category name="Myalgia">
+			<entry value="myalgia" />
+			<entry value="body ache" />
+			<entry value="hurt all over" />
+			<entry value="hurts all over" />
+			<entry value="bodyache" />
+			<entry value="body pain" />
+			<entry value="pain in">
+				<negative-indicators>
+					<entry value="stomach" />
+					<entry value="foot" />
+					<entry value="head" />
+					<entry value="chest" />
+				</negative-indicators>
+			</entry>
+			<entry value="limb pain" />
+			<entry value="limb hur" />
+			<entry value="limbs hur" />
+			<entry value="arm pain" />
+			<entry value="arm hur" />
+			<entry value="arms hur" />
+			<entry value="leg pain" />
+			<entry value="leg hur" />
+			<entry value="legs hur" />
+		</category>
+		<category name="Neuro">
+			<entry value="neuro" />
+			<entry value="decreased loc" />
+			<entry value="syncop" />
+			<entry value="snycop" />
+			<entry value="passed out" />
+			<entry value="pass out" />
+			<entry value="passing out" />
+			<entry value="passes out" />
+			<entry value="dizz" />
+			<entry value="light headed" />
+			<entry value="lightheaded" />
+			<entry value="shaking" />
+			<entry value="seizur">
+				<negative-indicators>
+					<entry value="febrile" />
+					<entry type="SEGMENT" value="fb" />
+				</negative-indicators>
+			</entry>
+			<entry value="sz">
+				<negative-indicators>
+					<entry value="febrile" />
+					<entry type="SEGMENT" value="fb" />
+				</negative-indicators>
+			</entry>
+			<entry value="siezur">
+				<negative-indicators>
+					<entry value="febrile" />
+					<entry type="SEGMENT" value="fb" />
+				</negative-indicators>
+			</entry>
+			<entry value="halluc">
+				<negative-indicators>
+					<entry value="react" />
+					<entry type="SEGMENT" value="rxn" />
+				</negative-indicators>
+			</entry>
+			<entry value="vertigo" />
+			<entry value="convuls">
+				<negative-indicators>
+					<entry value="react" />
+					<entry type="SEGMENT" value="rxn" />
+				</negative-indicators>
+			</entry>
+		</category>
+		<category name="Paralysis">
+			<entry value="paral" />
+			<entry value="droopy eyelids" />
+			<entry value="numbness" />
+			<entry value="paresthesia" />
+			<entry value="dysphag" />
+			<entry value="dysphon" />
+			<entry value="cant talk" />
+			<entry value="unable to talk" />
+			<entry value="cant speak" />
+			<entry value="unable to speak" />
+			<entry value="lose voice" />
+			<entry value="losing voice" />
+			<entry value="lost voice" />
+			<entry value="cant move" />
+			<entry value="unable to move" />
+			<entry value="flaccid" />
+			<entry value="side weak" />
+			<entry value="sided weak" />
+		</category>
+		<category name="Rash">
+			<entry type="SEGMENT" value="rash" />
+			<entry value="abces">
+				<negative-indicators>
+					<entry value="tooth" />
+					<entry value="teeth" />
+					<entry value="fluid" />
+					<entry value="dental" />
+				</negative-indicators>
+			</entry>
+			<entry value="absces">
+				<negative-indicators>
+					<entry value="tooth" />
+					<entry value="teeth" />
+					<entry value="fluid" />
+					<entry value="dental" />
+				</negative-indicators>
+			</entry>
+			<entry value="blotch" />
+			<entry value="splotch" />
+			<entry value="blister" />
+			<entry value="cyst" />
+			<entry value="pox" />
+			<entry value="measles" />
+			<entry value="shingles" />
+			<entry value="skin red" />
+			<entry value="skin ulcer" />
+			<entry value="lesion" />
+			<entry value="buboes" />
+			<entry value="eschar" />
+			<entry value="ring worm" />
+			<entry value="ringworm" />
+			<entry value="hives" />
+			<entry value="sores" />
+			<entry value="boil" />
+			<entry value="skin burning" />
+			<entry value="pink eye" />
+			<entry value="pinkeye" />
+			<entry value="red eye" />
+			<entry value="eye red" />
+			<entry value="eyes red" />
+			<entry value="thrush" />
+		</category>
+		<category name="Respiratory">
+			<entry value="resp" />
+			<entry type="SEGMENT" value="rsv" />
+			<entry value="trouble breath" />
+			<entry value="breathing prob" />
+			<entry value="breath prob" />
+			<entry value="breating pain" />
+			<entry value="breath pain" />
+			<entry value="dyspnea" />
+			<entry value="apnea" />
+			<entry value="hurts to breath" />
+			<entry value="stopped breath" />
+			<entry value="pleuri" />
+			<entry value="substernal discom" />
+			<entry value="wheez" />
+			<entry value="diff bre" />
+			<entry value="difficulty bre" />
+			<entry value="difficutly bre" />
+			<entry value="diffculity bre" />
+			<entry value="difficult bre" />
+			<entry value="difficuoty bre" />
+			<entry value="cold" />
+			<entry type="SEGMENT" value="flu" />
+			<entry value="pneum" />
+			<entry value="pnuem" />
+			<entry value="cyano" />
+			<entry type="SEGMENT" value="short breath">
+				<negative-indicators>
+					<entry value="chest pain" />
+				</negative-indicators>
+			</entry>
+			<entry type="SEGMENT" value="shortness breath">
+				<negative-indicators>
+					<entry value="chest pain" />
+				</negative-indicators>
+			</entry>
+			<entry type="SEGMENT" value="sob">
+				<negative-indicators>
+					<entry value="chest pain" />
+				</negative-indicators>
+			</entry>
+			<entry value="asthma">
+				<negative-indicators>
+					<entry value="history" />
+				</negative-indicators>
+			</entry>
+			<entry value="bronc" />
+			<entry value="lung" />
+		</category>
+		<category name="Stiff Neck">
+			<entry value="stiff neck" />
+			<entry value="neck pain" />
+		</category>
+		<category name="Shock">
+			<entry value="hypotens" />
+			<entry value="low blood pres" />
+			<entry value="lo blood pres" />
+			<entry value="low bp" />
+			<entry value="lo bp" />
+		</category>
+		<category name="Vision">
+			<entry value="photophobia" />
+			<entry value="blurry" />
+			<entry value="blurred" />
+			<entry value="diplopia" />
+			<entry value="visual diff" />
+			<entry value="visual dist" />
+			<entry value="vis diff" />
+			<entry value="vis dist" />
+			<entry value="seeing double" />
+			<entry value="sees double" />
+			<entry value="double vis" />
+		</category>
+		<category name="Vomiting">
+			<entry value="vomit">
+				<negative-indicators>
+					<entry value="blood" />
+				</negative-indicators>
+			</entry>
+			<entry value="vommit">
+				<negative-indicators>
+					<entry value="blood" />
+				</negative-indicators>
+			</entry>
+			<entry value="emesis" />
+			<entry value="throwing up">
+				<negative-indicators>
+					<entry value="blood" />
+				</negative-indicators>
+			</entry>
+			<entry value="throw up">
+				<negative-indicators>
+					<entry value="blood" />
+				</negative-indicators>
+			</entry>
+			<entry value="vomt">
+				<negative-indicators>
+					<entry value="blood" />
+				</negative-indicators>
+			</entry>
+			<entry value="vomi">
+				<negative-indicators>
+					<entry value="blood" />
+				</negative-indicators>
+			</entry>
+			<entry type="SEGMENT" value="nvd" />
+			<entry type="SEGMENT" value="nv" />
+			<entry type="SEGMENT" value="ving">
+				<negative-indicators>
+					<entry value="blood" />
+				</negative-indicators>
+			</entry>
+			<entry value="vommin">
+				<negative-indicators>
+					<entry value="blood" />
+				</negative-indicators>
+			</entry>
+		</category>
+
+		<none-indicators>
+			<entry value="mva" />
+			<entry value="mvc" />
+			<entry value="recheck" />
+			<entry value="refill" />
+			<entry value="assault" />
+			<entry value="accident" />
+			<entry value="injur" />
+			<entry value="foreign body" />
+			<entry value="foreign obj" />
+			<entry value="fb to" />
+			<entry value="fb in" />
+			<entry value="fo in" />
+			<entry value="fo to" />
+			<entry type="SEGMENT" value="fb">
+				<co-indicators>
+					<entry value="eye" />
+					<entry value="ear" />
+					<entry value="nose" />
+				</co-indicators>
+			</entry>
+			<entry type="SEGMENT" value="fo">
+				<co-indicators>
+					<entry value="eye" />
+					<entry value="ear" />
+					<entry value="nose" />
+				</co-indicators>
+			</entry>
+			<entry value="fall" />
+			<entry value="fell" />
+		</none-indicators>
+		
+		<stopwords override="true"></stopwords>
+	
+	</training-set>
+</classifier-config>

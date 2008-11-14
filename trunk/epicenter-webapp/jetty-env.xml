@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+<Configure class="org.mortbay.jetty.webapp.WebAppContext">
+
+	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
+		<Arg>surveillanceEnabled</Arg>
+		<Arg type="java.lang.Boolean">true</Arg>
+	</New>
+
+	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
+		<Arg>databaseType</Arg>
+		<Arg type="java.lang.String">postgresql</Arg>
+	</New>
+
+	<New class="org.mortbay.jetty.plus.naming.Resource">
+		<Arg>jdbc/EpiCenterDataSource</Arg>
+		<Arg>
+			<!--
+			<New class="oracle.jdbc.pool.OracleDataSource">
+				<Set name="URL">jdbc:oracle:thin:@dev1.hmsinc.com:1521:dev11</Set>
+				<Set name="User">health_central_22b</Set>
+				<Set name="Password">health_central_22b</Set>
+				<Set name="implicitCachingEnabled">true</Set>
+				<Set name="connectionCacheName">epicenter</Set>
+				<Set name="connectionCachingEnabled">true</Set>
+				<Set name="maxStatements">100</Set>
+			</New>
+			-->
+			<New class="org.postgresql.ds.PGPoolingDataSource">
+				<Set name="user">health_central_22</Set>
+				<Set name="password">health_central_22</Set>
+				<Set name="databaseName">health_central_22</Set>
+				<Set name="serverName">dev2</Set>
+				<Set name="portNumber">5432</Set>
+			</New>
+		</Arg>
+	</New>
+</Configure>

@@ -1,0 +1,8 @@
+Quick note for building on JDK6:
+--------------------------------
+
+JDK6 includes JAXB-RI 2.0.3, and EpiCenter is using 2.1.6.  This will
+cause the build to fail on JDK6 until I come up with a workaround for Maven.
+
+The easiest fix is to copy jaxb-api-2.1.jar into your $JAVA_HOME/jre/lib/endorsed directory.
+

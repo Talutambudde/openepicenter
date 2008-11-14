@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:epicenter="http://epicenter.hmsinc.com/integrator/1.0"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+  	   	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+  	   	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+  	   	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+  	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+  	   	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<context:annotation-config />
+	
+	<!-- Properties -->
+	<bean id="properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="classpath:epicenter-integrator.properties" />
+	</bean>
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="properties" ref="properties" />
+	</bean>
+
+
+	<!-- JPA EntityManager -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" depends-on="ehCacheManager">
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="${epicenter.db.dialect}" />
+				<property name="generateDdl" value="false" />
+			</bean>
+		</property>
+		<property name="persistenceUnitName" value="epicenter-model" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">${epicenter.db.ddl}</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.transaction.manager_lookup_class">
+					com.hmsinc.mergence.util.hibernate.TransactionManagerLookup
+				</prop>
+				<prop key="javax.persistence.transactionType">JTA</prop>
+				<prop key="javax.persistence.jtaDataSource">${epicenter.db.jndiname}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<jee:jndi-lookup id="transactionManager" jndi-name="java:comp/UserTransaction" />
+
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+
+	<!-- Core Services -->
+	<import resource="classpath:epicenter-service-beans.xml" />
+	
+	
+	<!-- Integrator Services -->
+	<bean id="loggerAlertService" class="com.hmsinc.mergence.monitoring.LoggerAlertService" />
+	
+	<bean id="alertService" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/AlertService" />
+		<property name="defaultObject" ref="loggerAlertService" />
+	</bean>
+
+	<epicenter:admitService id="admitService" />
+	
+	<epicenter:dischargeService id="dischargeService" />
+	
+	<epicenter:registrationService id="registrationService" />
+
+	<epicenter:patientService id="patientService" />
+
+	<epicenter:statisticsService id="statisticsService" alertThreshold="${epicenter.monitoring.threshold}" />
+
+	<epicenter:epiCenterService id="epiCenterService" autowire="byName" />
+
+
+	<!-- Event Handlers -->
+	<util:map id="eventHandlers">
+		<entry key="ADT_A01" value-ref="admitService" />
+		<entry key="ADT_A03" value-ref="dischargeService" />
+		<entry key="ADT_A04" value-ref="registrationService" />
+	</util:map>
+	
+</beans>

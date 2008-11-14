@@ -1,0 +1,95 @@
+#*
+ * Copyright (C) 2008 University of Pittsburgh
+ * 
+ * 
+ * This file is part of Open EpiCenter
+ * 
+ *     Open EpiCenter is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ * 
+ *     Open EpiCenter is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ * 
+ *     You should have received a copy of the GNU General Public License
+ *     along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+ *   
+ *#
+#parse( "/templates/email-common.vm" )
+
+<table width="95%">
+	<tr>
+		<td>
+			<h3 style="color: #3365ff;">
+				${category} Anomaly in ${geography}
+			</h3>
+		
+			<p>
+				Monitoring of ${indication.toLowerCase()} for residents of $geography identified $observedValue interactions classified as ${category.toLowerCase()} ${attributes}by the $classifier classifier. All interactions occurred between $startTime and $endTime.
+			</p>
+		
+			<p>
+				Using $analysisMethod analysis, these $observedValue interactions exceed the predicted value of $predictedObservedValue and the maximum threshold of $thresholdValue.
+			</p>
+		
+			<p>
+				The time of the anomaly was $anomalyTime.
+			</p>
+		
+			<h3 style="color: #3365ff;">
+				Summary
+			</h3>
+		
+			<table border="1" cellpadding="3px">
+				<tr>
+					<td><b>Time of Anomaly</b></td>
+					<td>$anomalyDateTime</td>
+				</tr>
+				<tr>
+					<td><b>Time Detected</b></td>
+					<td>$detectionDateTime</td>
+				</tr>
+				<tr>
+					<td><b>Indication</b></td>
+					<td>$indication</td>
+				</tr>
+				<tr>
+					<td><b>Classifier</b></td>	  
+					<td>$classifier</td>
+				</tr>
+				<tr>
+					<td><b>Classification(s)</b></td>	  
+					<td>$category</td>
+				</tr>
+				<tr>
+					<td><b>Location</b></td>
+					<td>$geography</td>
+				</tr>
+				<tr>
+					<td><b>Analysis Method</b></td>
+					<td>$analysisMethod</td>
+				</tr>
+				<tr>
+					<td><b>Results of Analysis</b></td>
+					<td>$normalizedValue, ($observedValue/$totalValue)(normalized)</td>
+				</tr>
+				<tr>
+					<td><b>Records Totaled By</b></td>
+					<td>$analysisLocation</td>
+				</tr>
+			</table>
+		
+			<p>
+				<a href="$epicenterUrl?event=${anomaly.Id}" target="_blank">
+					Click here to view this anomaly in EpiCenter.
+				</a>
+			</p>
+		</td>
+	</tr>
+</table>
+

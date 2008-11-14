@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<classifier-config xmlns="http://epicenter.hmsinc.com/classifier">
+	<name>Traumatic Injury</name>
+	<description>Generated Sat Feb 10 20:52:53 EST 2007</description>
+	<version>1.0</version>
+	<implementation>com.hmsinc.epicenter.classifier.regex.RegexClassifier</implementation>
+
+	<training-set>
+		<category name="MVA">
+			<entry value="pedestrian" />
+			<entry value="auto" />
+			<entry value="motorcy" />
+			<entry value="wrec" />
+			<entry value="accident" />
+			<entry value="bus" />
+			<entry value="hit by car" />
+			<entry value="hit by tru" />
+			<entry value="hit by bus" />
+			<entry value="hit with car" />
+			<entry value="hit with tru" />
+			<entry value="hit with bus" />
+			<entry value="ran over" />
+			<entry value="run over" />
+			<entry value="vehic" />
+			<entry type="SEGMENT" value="mva" />
+			<entry type="SEGMENT" value="mvc" />
+			<entry type="SEGMENT" value="ped" />
+			<entry type="SEGMENT" value="van" />
+			<entry type="SEGMENT" value="car" />
+		</category>
+		<category name="Gunshot">
+			<entry value="gunshot" />
+			<entry value="bullet" />
+			<entry value="bullit" />
+			<entry value="shoot" />
+			<entry value="pistol" />
+			<entry type="SEGMENT" value="gun" />
+			<entry type="SEGMENT" value="shot">
+				<negative-indicators>
+					<entry value="flu" />
+					<entry value="tet" />
+					<entry value="rabies" />
+					<entry value="needs shot" />
+					<entry value="need shot" />
+					<entry value="wants shot" />
+					<entry value="want shot" />
+					<entry value="shotness" />
+					<entry value="allerg" />
+					<entry value="alerg" />
+					<entry type="SEGMENT" value="dpt" />
+					<entry type="SEGMENT" value="glob" />
+				</negative-indicators>
+			</entry>
+		</category>
+		<category name="Violence">
+			<entry value="violen" />
+			<entry value="assaul" />
+			<entry value="asaul" />
+			<entry value="rape" />
+			<entry value="figh" />
+			<entry value="beat up" />
+			<entry value="beatup" />
+			<entry value="beaten" />
+			<entry value="jumped" />
+			<entry value="punch" />
+			<entry value="kick" />
+			<entry value="stab" />
+			<entry value="attac">
+				<negative-indicators>
+					<entry value="dog" />
+					<entry value="cat" />
+					<entry value="bear" />
+					<entry value="wolf" />
+					<entry value="squirrel" />
+				</negative-indicators>
+			</entry>
+			<entry value="hit with">
+				<negative-indicators>
+					<entry value="car" />
+					<entry value="bus" />
+					<entry value="truc" />
+					<entry value="van" />
+					<entry value="motor" />
+					<entry value="bike" />
+				</negative-indicators>
+			</entry>
+			<entry value="hit by">
+				<negative-indicators>
+					<entry value="car" />
+					<entry value="bus" />
+					<entry value="truc" />
+					<entry value="van" />
+					<entry value="motor" />
+					<entry value="bike" />
+				</negative-indicators>
+			</entry>
+			<entry value="knif" />
+			<entry value="beaten" />
+		</category>
+		<category name="Suture/Wound Check">
+			<entry value="sutur" />
+			<entry value="sultu" />
+			<entry value="surtu" />
+			<entry value="wound ch" />
+			<entry value="wound ck" />
+			<entry value="wound care" />
+			<entry value="drain" />
+			<entry value="dressing ch" />
+			<entry value="change dres" />
+			<entry value="drsg ch" />
+			<entry value="packing ch" />
+			<entry value="pack ch" />
+			<entry value="change pack" />
+			<entry value="wnd ch" />
+			<entry value="wnd ck" />
+			<entry value="ck wnd" />
+			<entry value="ch wnd" />
+			<entry value="wndch" />
+			<entry value="wndck" />
+			<entry value="remov" />
+			<entry value="stapl" />
+			<entry type="SEGMENT" value="cast" />
+		</category>
+		<category name="Injury">
+			<entry value="wound">
+				<negative-indicators>
+					<entry type="SEGMENT" value="ch" />
+					<entry type="SEGMENT" value="ck" />
+					<entry value="check" />
+				</negative-indicators>
+			</entry>
+			<entry value="injur" />
+			<entry value="contus" />
+			<entry value="abras" />
+			<entry value="concus" />
+			<entry value="traum" />
+			<entry value="trama" />
+			<entry value="truam" />
+			<entry value="brok" />
+			<entry value="bust" />
+			<entry value="fract" />
+			<entry value="smash" />
+			<entry value="crush" />
+			<entry value="slam" />
+			<entry value="jamm" />
+			<entry value="sprain" />
+			<entry value="wnd" />
+			<entry value="foreign body to" />
+			<entry value="foreign body in" />
+			<entry value="fb to" />
+			<entry value="fb in" />
+			<entry value="foreign object to" />
+			<entry value="foreign object in" />
+			<entry value="fo to" />
+			<entry value="fo in" />
+			<entry type="SEGMENT" value="fx" />
+			<entry type="SEGMENT" value="lac" />
+			<entry type="SEGMENT" value="fell" />
+			<entry type="SEGMENT" value="fall" />
+			<entry type="SEGMENT" value="jam" />
+			<entry type="SEGMENT" value="bang" />
+			<entry type="SEGMENT" value="hit" />
+		</category>
+		<category name="Drugs">
+			<entry value="drugs" />
+			<entry value="cocain" />
+			<entry value="coke" />
+			<entry value="crack" />
+			<entry value="crystal met" />
+			<entry value="drug abu" />
+			<entry value="drug od" />
+			<entry value="drug use" />
+			<entry value="ecsta" />
+			<entry value="extasy" />
+			<entry value="extacy" />
+			<entry value="heroin" />
+			<entry value="ketamin" />
+			<entry value="ketemin" />
+			<entry value="marij" />
+			<entry value="methadon" />
+			<entry value="methamp" />
+			<entry value="opio" />
+			<entry value="opium" />
+			<entry value="opiat" />
+			<entry value="overdose" />
+			<entry value="shoting drug" />
+			<entry value="shooting drug" />
+			<entry value="shooting heroi" />
+			<entry value="shoting heroi" />
+			<entry value="pills" />
+			<entry value="smack" />
+			<entry value="speed">
+				<negative-indicators>
+					<entry type="SEGMENT" value="car" />
+					<entry type="SEGMENT" value="mva" />
+					<entry value="acci" />
+				</negative-indicators>
+			</entry>
+			<entry value="crank" />
+			<entry value="sub abu" />
+			<entry value="subst abu" />
+			<entry value="substance abu" />
+			<entry value="substence abu" />
+			<entry value="withdraw" />
+			<entry type="SEGMENT" value="od" />
+			<entry type="SEGMENT" value="idu" />
+			<entry type="SEGMENT" value="ivdu" />
+		</category>
+		<none-indicators>
+			<entry value="no known inj" />
+			<entry value="no inj" />
+			<entry value="refill" />
+		</none-indicators>
+	</training-set>
+</classifier-config>

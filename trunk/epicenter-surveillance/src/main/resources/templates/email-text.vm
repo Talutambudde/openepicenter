@@ -1,0 +1,46 @@
+#*
+ * Copyright (C) 2008 University of Pittsburgh
+ * 
+ * 
+ * This file is part of Open EpiCenter
+ * 
+ *     Open EpiCenter is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ * 
+ *     Open EpiCenter is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ * 
+ *     You should have received a copy of the GNU General Public License
+ *     along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+ *   
+ *#
+#parse( "/templates/email-common.vm" )
+${category} Anomaly in ${geography}
+
+Monitoring of ${indication.toLowerCase()} for residents of $geography identified $observedValue interactions classified as ${category.toLowerCase()} ${attributes}by the $classifier classifier. All interactions occurred between $startTime and $endTime.
+
+Using $analysisMethod analysis, these $observedValue interactions exceed the predicted value of $predictedObservedValue and the maximum threshold of $thresholdValue.
+
+The time of the anomaly was $anomalyTime.
+
+Summary
+
+Time of Anomaly         $anomalyDateTime
+Time Detected           $detectionDateTime
+Indication              $indication
+Classifier              $classifier
+Classification(s)       $category
+Location                $geography
+Analysis Method         $analysisMethod
+Results of Analysis     $normalizedValue, ($observedValue/$totalValue)(normalized)
+Records Totaled By      $analysisLocation
+
+Please use the following link to view this anomaly in
+EpiCenter: $epicenterUrl?event=${anomaly.Id}
+

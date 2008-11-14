@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:m="http://services.hmsinc.com/core/1.0" xmlns:j="http://jencks.org/2.0"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://jencks.org/2.1 http://repo1.maven.org/maven2/org/jencks/jencks/2.1/jencks-2.1.xsd">
+
+	
+	<j:transactionManager id="transactionManager" defaultTransactionTimeoutSeconds="600" />
+
+	<j:poolingSupport id="poolingSupport" poolMaxSize="100" />
+	
+	<j:connectionTracker id="connectionTracker" geronimoTransactionManager="#transactionManager" />
+
+	<j:connectionManager id="testConnectionManager" transaction="xa" poolingSupport="#poolingSupport" connectionTracker="#connectionTracker" transactionManager="#transactionManager" />
+
+	<bean id="jndi" class="org.apache.xbean.spring.jndi.DefaultContext">
+
+		<property name="entries">
+			<map>
+
+				<entry key="java:comp/UserTransaction" value-ref="transactionManager" />
+
+				<entry key="java:comp/env/jdbc/datastore">
+					<bean class="org.jencks.factory.ConnectionFactoryFactoryBean">
+						<property name="connectionManager" ref="testConnectionManager" />
+						<property name="managedConnectionFactory">
+							<bean class="org.tranql.connector.derby.EmbeddedXAMCF">
+								<property name="createDatabase" value="true" />
+								<property name="databaseName" value="target/testdb" />
+							</bean>
+						</property>
+					</bean>
+				</entry>
+				
+				<!-- 
+				<entry key="java:comp/AlertService">
+					<bean class="com.hmsinc.mergence.monitoring.LoggerAlertService" />
+				</entry>
+				-->
+				
+			</map>
+		</property>
+	</bean>
+	
+</beans>

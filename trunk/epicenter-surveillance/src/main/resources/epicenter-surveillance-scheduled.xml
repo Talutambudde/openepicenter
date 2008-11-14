@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2008 University of Pittsburgh
+    
+    
+    This file is part of Open EpiCenter
+    
+        Open EpiCenter is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        Open EpiCenter is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with Open EpiCenter.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+      
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+	<import resource="classpath:epicenter-surveillance-beans.xml" />
+	
+	
+	<bean id="surveillanceService" class="com.hmsinc.epicenter.surveillance.SchedulingSurveillanceService">
+		<property name="surveillanceEnabled" ref="surveillanceEnabled" />
+	</bean>
+	
+	
+	<!-- Surveillance Job configuration -->
+	<bean id="surveillanceJob" class="com.hmsinc.epicenter.surveillance.jobs.SurveillanceJob" />
+
+	<bean id="surveillanceSyncJob" class="com.hmsinc.epicenter.surveillance.jobs.SurveillanceSyncJob" />
+
+	<bean id="surveillanceSyncJobDetail" class="com.hmsinc.epicenter.surveillance.jobs.PersistableMethodInvokingJobDetailFactoryBean">
+		<property name="name" value="Surveillance Sync Job" />
+		<property name="targetBeanName" value="surveillanceSyncJob" />
+		<property name="targetMethod" value="run" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<bean id="surveillanceSyncJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="surveillanceSyncJobDetail" />
+		<property name="cronExpression" value="30 0/2 * * * ?" />
+		<property name="priority" value="3" />
+	</bean>
+
+	<bean id="schedulerTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" destroy-method="shutdown">
+		<property name="corePoolSize" value="2" />
+		<property name="maxPoolSize" value="2" />
+	</bean>
+	
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" destroy-method="destroy">
+		<property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+		<property name="taskExecutor" ref="schedulerTaskExecutor" />
+		<property name="waitForJobsToCompleteOnShutdown" value="true" />
+		<property name="overwriteExistingJobs" value="true" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="autoStartup" ref="surveillanceEnabled" />
+		<property name="startupDelay" value="30" />
+		<property name="quartzProperties">
+			<map>
+				<entry key="org.quartz.jobStore.driverDelegateClass" value-ref="databaseConfiguration.quartzDelegate" />
+				<entry key="org.quartz.jobStore.isClustered" value="true" />
+				<entry key="org.quartz.jobStore.clusterCheckinInterval" value="20000" />
+				<entry key="org.quartz.jobStore.useProperties" value="false" />
+				<entry key="org.quartz.scheduler.instanceName" value="EpiCenterScheduler" />
+				<entry key="org.quartz.scheduler.instanceId" value="AUTO" />
+			</map>
+		</property>
+	</bean>
+	
+</beans>
